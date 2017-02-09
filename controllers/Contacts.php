@@ -62,13 +62,14 @@ class Contacts extends ZeCtrl
             $data = json_decode(file_get_contents('php://input'), true);
         }
 
-        if (isset($data["id"]) && is_numeric($data["id"])) {
+        if (isset($data["id"])) {
             $this->contacts->update($data, $data["id"]);
+            $id = $data['id'];
         } else {
-            $this->contacts->insert($data);
+            $id = $this->contacts->insert($data);
         }
 
-        echo json_encode("OK");
+        echo json_encode($id);
     }
 
 
