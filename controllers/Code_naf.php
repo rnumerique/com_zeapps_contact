@@ -21,7 +21,7 @@ class Code_naf extends ZeCtrl
 
 
     public function getAll() {
-        $this->load->model("zeapps_code_naf", "code_naf");
+        $this->load->model("Zeapps_code_naf", "code_naf");
         $code_naf = $this->code_naf->all();
 
         if ($code_naf == false) {
@@ -33,7 +33,7 @@ class Code_naf extends ZeCtrl
     }
 
     public function get($id) {
-        $this->load->model("zeapps_code_naf", "code_naf");
+        $this->load->model("Zeapps_code_naf", "code_naf");
         echo json_encode($this->code_naf->get($id));
     }
 
