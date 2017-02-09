@@ -13,7 +13,7 @@ class Country_lang extends ZeCtrl
 
     public function getAll() {
         $this->load->model("zeapps_country_lang", "country_lang");
-        $country_lang = $this->country_lang->get_all();
+        $country_lang = $this->country_lang->all();
 
         if ($country_lang == false) {
             echo json_encode(array());

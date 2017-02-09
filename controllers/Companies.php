@@ -44,7 +44,7 @@ class Companies extends ZeCtrl
 
     public function getAll() {
         $this->load->model("zeapps_companies", "companies");
-        $companies = $this->companies->get_all();
+        $companies = $this->companies->all();
 
         if ($companies == false) {
             echo json_encode(array());

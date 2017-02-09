@@ -22,7 +22,7 @@ class Code_naf extends ZeCtrl
 
     public function getAll() {
         $this->load->model("zeapps_code_naf", "code_naf");
-        $code_naf = $this->code_naf->get_all();
+        $code_naf = $this->code_naf->all();
 
         if ($code_naf == false) {
             echo json_encode(array());
