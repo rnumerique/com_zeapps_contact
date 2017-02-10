@@ -6,8 +6,7 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
 
 
         var loadList = function () {
-            var options = {};
-            $http.post('/com_zeapps_contact/companies/getAll', options).then(function (response) {
+            $http.post('/com_zeapps_contact/companies/getAll').then(function (response) {
                 if (response.status == 200) {
                     $scope.companies = response.data ;
 

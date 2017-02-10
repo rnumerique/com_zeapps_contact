@@ -1,7 +1,17 @@
-app.controller('ComZeappsContactCompaniesViewCtrl', ['$scope', '$route', '$routeParams', '$location', '$rootScope', '$http', 'zeapps_modal',
-    function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal) {
+app.controller('ComZeappsContactCompaniesViewCtrl', ['$scope', '$route', '$routeParams', '$location', '$rootScope', '$http', 'zeapps_modal', 'zeHooks',
+    function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal, zeHooks) {
 
         $scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_company");
+
+        $scope.$on('comZeappsContact_triggerEntrepriseHook', function(event, data){
+            $rootScope.$broadcast('comZeappsContact_dataEntrepriseHook',
+                {
+                    id_company: $routeParams.id
+                }
+            );
+        });
+
+        $scope.hooks = zeHooks.get('comZeappsContact_EntrepriseHook');
 
         var initNavigation = function() {
 
@@ -80,22 +90,25 @@ app.controller('ComZeappsContactCompaniesViewCtrl', ['$scope', '$route', '$route
         }
 
         /******* gestion de la tabs *********/
-        $scope.navigationState = 'summary';
+        $scope.currentTab = 'summary';
         if ($rootScope.comZeappsContactLastShowTabEntreprise) {
-            $scope.navigationState = $rootScope.comZeappsContactLastShowTabEntreprise ;
+            $scope.currentTab = $rootScope.comZeappsContactLastShowTabEntreprise ;
         }
 
-        // pour détecter les changements sur le models
-        $scope.$watch('navigationState', function(scope){
-            $rootScope.comZeappsContactLastShowTabEntreprise = $scope.navigationState ;
-        }, true);
+        $scope.setTab = function(tab){
+            $rootScope.comZeappsContactLastShowTabEntreprise = tab;
+            $scope.currentTab = tab;
+        };
+
+        $scope.isTabActive = function(tab){
+            return $scope.currentTab === tab;
+        };
         /******* FIN : gestion de la tabs *********/
 
 
 
 
         $scope.form = [];
-        $scope.quotes = [];
 
         // charge la fiche
         if ($routeParams.id && $routeParams.id != 0) {
@@ -104,15 +117,6 @@ app.controller('ComZeappsContactCompaniesViewCtrl', ['$scope', '$route', '$route
                     $scope.form = response.data;
                 }
             });
-            $http.get('/com_zeapps_crm/quotes/getAll/' + $routeParams.id).then(function(response){
-                if(response.data && response.data != 'false'){
-                    $scope.quotes = response.data;
-                    for(var i=0; i<$scope.quotes.length; i++){
-                        $scope.quotes[i].date_creation = new Date($scope.quotes[i].date_creation);
-                        $scope.quotes[i].date_limit = new Date($scope.quotes[i].date_limit);
-                    }
-                }
-            })
         }
 
         $scope.edit = function () {
@@ -123,37 +127,6 @@ app.controller('ComZeappsContactCompaniesViewCtrl', ['$scope', '$route', '$route
 
         $scope.cancel = function () {
             $location.path("/ng/com_zeapps_contact/companies");
-        };
-
-
-
-
-
-
-        $scope.totalHT = function(quote){
-
-            var total = 0;
-            for(var i = 0; i < quote.lines.length; i++){
-                if(quote.lines[i] != undefined && quote.lines[i].num != 'subTotal' && quote.lines[i].num != 'comment'){
-                    total += quote.lines[i].price_unit * quote.lines[i].qty * ( 1 - (quote.lines[i].discount / 100) );
-                }
-            }
-            total = total * (1- (quote.global_discount / 100) );
-            return total;
-
-        };
-
-        $scope.totalTTC = function(quote){
-
-            var total = 0;
-            for(var i = 0; i < quote.lines.length; i++){
-                if(quote.lines[i] != undefined && quote.lines[i].num != 'subTotal' && quote.lines[i].num != 'comment'){
-                    total += quote.lines[i].price_unit * quote.lines[i].qty * ( 1 - (quote.lines[i].discount / 100) ) * ( 1 + (quote.lines[i].taxe / 100) );
-                }
-            }
-            total = total * (1- (quote.global_discount / 100) );
-            return total;
-
         };
 
 
