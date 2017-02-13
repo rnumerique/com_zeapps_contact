@@ -72,7 +72,7 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
 
 
 
-        $scope.save = function () {
+        $scope.success = function () {
             var $data = {} ;
 
             if ($routeParams.id != 0) {
@@ -124,11 +124,11 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
                 // pour que la page puisse être redirigé
                 $location.path("/ng/com_zeapps_contact/contacts");
             });
-        }
+        };
 
         $scope.cancel = function () {
             $location.path("/ng/com_zeapps_contact/contacts");
-        }
+        };
 
 
 

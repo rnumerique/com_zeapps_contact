@@ -55,118 +55,72 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-        <ul df-tab-menu menu-control="{{navigationState}}"  theme="bootstrap" role="tablist" class="df-tab-menu nav nav-tabs">
-            <li data-menu-item="summary"><a href="#" data-ng-click="navigationState = 'summary'">Résumé</a></li>
-            <li data-menu-item="quote"><a href="#" data-ng-click="navigationState = 'quote'">Devis ({{ quotes.length }})</a></li>
-            <li data-menu-item="order"><a href="#" data-ng-click="navigationState = 'order'">Commande (5)</a></li>
-            <li data-menu-item="invoice"><a href="#" data-ng-click="navigationState = 'invoice'">Facutre (12)</a></li>
-            <li data-menu-item="delivery"><a href="#" data-ng-click="navigationState = 'delivery'">Bon de livraison (3)</a></li>
-            <li data-menu-item="purchase"><a href="#" data-ng-click="navigationState = 'purchase'">Achat</a></li>
-            <li data-menu-item="purchase-receipt"><a href="#" data-ng-click="navigationState = 'purchase-receipt'">Bon de réception</a></li>
-            <li data-menu-item="contract"><a href="#" data-ng-click="navigationState = 'contract'">Contrat</a></li>
-            <li data-menu-item="projects"><a href="#" data-ng-click="navigationState = 'projects'">Projets (5)</a></li>
-            <li data-menu-item="ticket"><a href="#" data-ng-click="navigationState = 'ticket'">Ticket</a></li>
-            <li data-menu-item="activity"><a href="#" data-ng-click="navigationState = 'activity'">Activité</a></li>
+        <ul role="tablist" class="nav nav-tabs">
+            <li role="presentation" ng-class="isTabActive('summary') ? 'active' : ''"><a href="#" ng-click="setTab('summary')">Résumé</a></li>
 
-            <li data-more-menu-item><a class="btn btn-primary"><span class="glyphicon glyphicon-menu-down"></span></a></li>
+            <li role="presentation" ng-class="isTabActive(hook.label) ? 'active' : ''" ng-repeat="hook in hooks">
+                <a href="#" ng-click="setTab(hook.label)">{{ hook.label }}</a>
+            </li>
+
+            <li role="presentation" ng-class="isTabActive('delivery') ? 'active' : ''"><a href="#" ng-click="setTab('delivery')">Bon de livraison</a></li>
+            <li role="presentation" ng-class="isTabActive('purchase') ? 'active' : ''"><a href="#" ng-click="setTab('purchase')">Achat</a></li>
+            <li role="presentation" ng-class="isTabActive('receipt') ? 'active' : ''"><a href="#" ng-click="setTab('receipt')">Bon de réception</a></li>
+            <li role="presentation" ng-class="isTabActive('contract') ? 'active' : ''"><a href="#" ng-click="setTab('contract')">Contrat</a></li>
+            <li role="presentation" ng-class="isTabActive('projects') ? 'active' : ''"><a href="#" ng-click="setTab('projects')">Projets</a></li>
+            <li role="presentation" ng-class="isTabActive('ticket') ? 'active' : ''"><a href="#" ng-click="setTab('ticket')">Ticket</a></li>
+            <li role="presentation" ng-class="isTabActive('activity') ? 'active' : ''"><a href="#" ng-click="setTab('activity')">Activité</a></li>
         </ul>
 
 
 
-        <div class="row" ng-show="navigationState=='summary'">
+        <div class="row" ng-show="isTabActive('summary')">
             <div class="col-md-12">
                 sommaire
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='quote'">
-            <div class="col-md-12 text-right">
-                <a class="btn btn-sm btn-primary" href="/ng/com_zeapps_crm/quote/new/{{ form.id }}">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Nouveau Devis
-                </a>
-            </div>
-            <div class="col-md-12">
-                <table class="table table-bordered table-striped table-condensed table-responsive">
-                    <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Contact</th>
-                        <th>Entreprise</th>
-                        <th>Total HT</th>
-                        <th>Total TTC</th>
-                        <th>Date de création</th>
-                        <th>Date limite</th>
-                        <th>Responsable</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="quote in quotes">
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{quote.libelle}}</a></td>
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{quote.contact.first_name[0] + '. ' + quote.contact.last_name}}</a></td>
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{quote.company.company_name}}</a></td>
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{totalHT(quote)}}</a></td>
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{totalTTC(quote)}}</a></td>
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{quote.date_creation | date:'dd/MM/yyyy'}}</a></td>
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{quote.date_limit | date:'dd/MM/yyyy'}}</a></td>
-                        <td><a href="/ng/com_zeapps_crm/quote/{{quote.id}}">{{quote.user_name}}</a></td>
-                        <td><button type="button" class="btn btn-danger btn-sm" ng-click="delete(quote)">Supprimer</button></td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div ng-show="isTabActive(hook.label)" ng-repeat="hook in hooks">
+            <div ng-include="hook.template">
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='order'">
-            <div class="col-md-12">
-                order
-            </div>
-        </div>
-
-        <div class="row" ng-show="navigationState=='invoice'">
-            <div class="col-md-12">
-                invoice
-            </div>
-        </div>
-
-        <div class="row" ng-show="navigationState=='delivery'">
+        <div class="row" ng-show="isTabActive('delivery')">
             <div class="col-md-12">
                 delivery
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='purchase'">
+        <div class="row" ng-show="isTabActive('purchase')">
             <div class="col-md-12">
                 purchase
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='purchase-receipt'">
+        <div class="row" ng-show="isTabActive('receipt')">
             <div class="col-md-12">
                 purchase-receipt
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='contract'">
+        <div class="row" ng-show="isTabActive('contract')">
             <div class="col-md-12">
                 contract
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='projects'">
+        <div class="row" ng-show="isTabActive('projects')">
             <div class="col-md-12">
                 projects
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='ticket'">
+        <div class="row" ng-show="isTabActive('ticket')">
             <div class="col-md-12">
                 ticket
             </div>
         </div>
 
-        <div class="row" ng-show="navigationState=='activity'">
+        <div class="row" ng-show="isTabActive('activity')">
             <div class="col-md-12">
                 Activité
             </div>

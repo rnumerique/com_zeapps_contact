@@ -1,13 +1,14 @@
-app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$routeParams', '$location', '$rootScope', '$http', '$uibModal',
-    function ($scope, $route, $routeParams, $location, $rootScope, $http, $uibModal) {
+app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$routeParams', '$location', '$rootScope', '$http', '$uibModal', 'zeapps_modal',
+    function ($scope, $route, $routeParams, $location, $rootScope, $http, $uibModal, zeapps_modal) {
 
         $scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_company");
 
-
+        $scope.filters = {
+            id_type_account : 'none'
+        };
 
         var loadList = function () {
-            var options = {};
-            $http.post('/com_zeapps_contact/companies/getAll', options).then(function (response) {
+            $http.post('/com_zeapps_contact/companies/getAll').then(function (response) {
                 if (response.status == 200) {
                     $scope.companies = response.data ;
 
@@ -17,6 +18,36 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
             });
         };
         loadList() ;
+
+        $scope.loadCodeNaf = function () {
+            zeapps_modal.loadModule("com_zeapps_contact", "search_code_naf", {}, function(objReturn) {
+                if (objReturn) {
+                    $scope.filters.code_naf = objReturn.code_naf;
+                    $scope.filters.code_naf_libelle = objReturn.code_naf + " - " + objReturn.libelle;
+                } else {
+                    $scope.filters.code_naf = '';
+                    $scope.filters.code_naf_libelle = '';
+                }
+            });
+        };
+
+        $scope.removeCodeNaf = function() {
+            $scope.filters.code_naf = '';
+            $scope.filters.code_naf_libelle = '';
+        };
+
+        $scope.loadCountryLang = function () {
+            zeapps_modal.loadModule("com_zeapps_contact", "search_country_lang", {}, function (objReturn) {
+                $scope.filters.country_lang_name = objReturn.name;
+                $scope.filters.country_id = objReturn.id_country;
+            });
+        };
+
+        $scope.removeCountryLang = function() {
+            $scope.filters.country_lang_name = '';
+            $scope.filters.country_id = 0;
+
+        };
 
 
 

@@ -35,7 +35,7 @@ class Contacts extends ZeCtrl
 
 
     public function getAll() {
-        $this->load->model("zeapps_contacts", "contacts");
+        $this->load->model("Zeapps_contacts", "contacts");
         $contacts = $this->contacts->all();
 
         if ($contacts == false) {
@@ -47,12 +47,12 @@ class Contacts extends ZeCtrl
     }
 
     public function get($id) {
-        $this->load->model("zeapps_contacts", "contacts");
+        $this->load->model("Zeapps_contacts", "contacts");
         echo json_encode($this->contacts->get($id));
     }
 
     public function save() {
-        $this->load->model("zeapps_contacts", "contacts");
+        $this->load->model("Zeapps_contacts", "contacts");
 
         // constitution du tableau
         $data = array() ;
@@ -62,18 +62,19 @@ class Contacts extends ZeCtrl
             $data = json_decode(file_get_contents('php://input'), true);
         }
 
-        if (isset($data["id"]) && is_numeric($data["id"])) {
+        if (isset($data["id"])) {
             $this->contacts->update($data, $data["id"]);
+            $id = $data['id'];
         } else {
-            $this->contacts->insert($data);
+            $id = $this->contacts->insert($data);
         }
 
-        echo json_encode("OK");
+        echo json_encode($id);
     }
 
 
     public function delete($id) {
-        $this->load->model("zeapps_contacts", "contacts");
+        $this->load->model("Zeapps_contacts", "contacts");
         $this->contacts->delete($id);
 
         echo json_encode("OK");

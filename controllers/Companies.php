@@ -43,7 +43,7 @@ class Companies extends ZeCtrl
 
 
     public function getAll() {
-        $this->load->model("zeapps_companies", "companies");
+        $this->load->model("Zeapps_companies", "companies");
         $companies = $this->companies->all();
 
         if ($companies == false) {
@@ -54,12 +54,12 @@ class Companies extends ZeCtrl
     }
 
     public function get($id) {
-        $this->load->model("zeapps_companies", "companies");
+        $this->load->model("Zeapps_companies", "companies");
         echo json_encode($this->companies->get($id));
     }
 
     public function save() {
-        $this->load->model("zeapps_companies", "companies");
+        $this->load->model("Zeapps_companies", "companies");
 
         // constitution du tableau
         $data = array() ;
@@ -80,7 +80,7 @@ class Companies extends ZeCtrl
 
 
     public function delete($id) {
-        $this->load->model("zeapps_companies", "companies");
+        $this->load->model("Zeapps_companies", "companies");
         $this->companies->delete($id);
 
         echo json_encode("OK");
