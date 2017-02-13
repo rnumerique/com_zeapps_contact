@@ -8,31 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <form>
         <div class="well">
             <div class="row">
-                <div class="col-md-6">
-
-
-                    <div class="form-group">
-                        <label>Nom</label>
-                        <input type="text" ng-model="form.company_name" class="form-control">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Société Mère</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.name_parent_company" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.id_parent_company">
-
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeParentCompany()"
-                                        ng-show="form.id_parent_company != 0 && form.id_parent_company != undefined">x
-                                </button>
-                                <button class="btn btn-default" type="button" ng-click="loadParentCompany()">...</button>
-                            </span>
-                        </div>
-                    </div>
-
-
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Type de compte</label>
                         <select ng-model="form.id_type_account" class="form-control">
@@ -43,11 +19,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <option>xxxxxxxxxxxx</option>
                         </select>
                     </div>
-
-
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Secteur d’activité</label>
-                        <select ng-model="form.id_activity_area" class="form-control">
+                        <label>Compte comptable</label>
+                        <select ng-model="form.accounting_number" class="form-control">
                             <option>xxxxxxxxxxxx</option>
                             <option>xxxxxxxxxxxx</option>
                             <option>xxxxxxxxxxxx</option>
@@ -55,23 +31,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <option>xxxxxxxxxxxx</option>
                         </select>
                     </div>
-
-
-                    <div class="form-group">
-                        <label>Chiffre d’affaires</label>
-                        <input type="text" ng-model="form.turnover" class="form-control">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>SIRET</label>
-                        <input type="text" ng-model="form.company_number" class="form-control">
-                    </div>
                 </div>
-
-
-                <div class="col-md-6">
-
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Gestionnaire du Compte</label>
                         <div class="input-group">
@@ -86,24 +47,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-
+        <div class="well">
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label>Téléphone</label>
-                        <input type="text" ng-model="form.phone" class="form-control">
+                        <label>Nom</label>
+                        <input type="text" ng-model="form.company_name" class="form-control">
                     </div>
-
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label>Télécopie</label>
-                        <input type="text" ng-model="form.fax" class="form-control">
-                    </div>
+                        <label>Société Mère</label>
+                        <div class="input-group">
+                            <input type="text" ng-model="form.name_parent_company" class="form-control" disabled>
+                            <input type="hidden" ng-model="form.id_parent_company">
 
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="removeParentCompany()"
+                                        ng-show="form.id_parent_company != 0 && form.id_parent_company != undefined">x
+                                </button>
+                                <button class="btn btn-default" type="button" ng-click="loadParentCompany()">...</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label>URL du site web</label>
-                        <input type="text" ng-model="form.website_url" class="form-control">
+                        <label>SIRET</label>
+                        <input type="text" ng-model="form.company_number" class="form-control">
                     </div>
-
-
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>Code NAF</label>
                         <div class="input-group">
@@ -118,13 +99,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </span>
                         </div>
                     </div>
+                </div>
+            </div>
 
-
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label>Compte comptable</label>
-                        <input type="text" ng-model="form.accounting_number" class="form-control">
+                        <label>Chiffre d’affaires</label>
+                        <input type="text" ng-model="form.turnover" class="form-control">
                     </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="well">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="text" ng-model="form.phone" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Télécopie</label>
+                        <input type="text" ng-model="form.fax" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>URL du site web</label>
+                        <input type="text" ng-model="form.website_url" class="form-control">
+                    </div>
                 </div>
             </div>
         </div>

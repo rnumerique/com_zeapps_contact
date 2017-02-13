@@ -1,9 +1,11 @@
-app.controller('ComZeappsContactContactsListCtrl', ['$scope', '$route', '$routeParams', '$location', '$rootScope', '$http', '$uibModal',
-    function ($scope, $route, $routeParams, $location, $rootScope, $http, $uibModal) {
+app.controller('ComZeappsContactContactsListCtrl', ['$scope', '$route', '$routeParams', '$location', '$rootScope', '$http', '$uibModal', 'zeapps_modal',
+    function ($scope, $route, $routeParams, $location, $rootScope, $http, $uibModal, zeapps_modal) {
 
         $scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_contact");
 
-
+        $scope.filters = {
+            id_type_account : 'none'
+        };
 
         var loadList = function () {
             var options = {};
@@ -15,7 +17,18 @@ app.controller('ComZeappsContactContactsListCtrl', ['$scope', '$route', '$routeP
         };
         loadList() ;
 
+        $scope.loadCountryLang = function () {
+            zeapps_modal.loadModule("com_zeapps_contact", "search_country_lang", {}, function (objReturn) {
+                $scope.filters.country_lang_name = objReturn.name;
+                $scope.filters.country_id = objReturn.id_country;
+            });
+        };
 
+        $scope.removeCountryLang = function() {
+            $scope.filters.country_lang_name = '';
+            $scope.filters.country_id = 0;
+
+        };
 
         $scope.delete = function (argIdUser) {
             var modalInstance = $uibModal.open({
