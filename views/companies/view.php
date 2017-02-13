@@ -80,9 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <div ng-show="isTabActive(hook.label)" ng-repeat="hook in hooks">
-            <div ng-dynamic-controller="hook.controller">
-                <div ng-include="hook.template">
-                </div>
+            <div ng-include="hook.template">
             </div>
         </div>
 
