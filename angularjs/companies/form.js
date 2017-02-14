@@ -146,7 +146,7 @@ app.controller('ComZeappsContactCompaniesFormListCtrl', ['$scope', '$route', '$r
                     $location.path("/ng/com_zeapps_contact/companies");
                 }
             });
-        }
+        };
 
         $scope.cancel = function () {
             if ($routeParams.url_retour) {

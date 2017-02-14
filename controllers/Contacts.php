@@ -10,6 +10,13 @@ class Contacts extends ZeCtrl
         $this->load->view('contacts/search', $data);
     }
 
+    public function view()
+    {
+        $data = array() ;
+
+        $this->load->view('contacts/view', $data);
+    }
+
     public function form()
     {
         $data = array() ;
