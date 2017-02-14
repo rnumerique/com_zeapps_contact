@@ -36,16 +36,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <div class="col-md-3">
                     <div class="pull-right">
-                        <button type="button" class="btn btn-primary btn-xs" ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span></button>
-                        <button type="button" class="btn btn-success btn-xs" ng-click="edit()"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="cancel()"><span class="fa fa-fw fa-arrow-left"></span></button>
+                        <button type="button" class="btn btn-info btn-xs" ng-click="edit()"><span class="fa fa-fw fa-pencil"></span></button>
 
 
                         <div class="btn-group btn-group-xs" role="group" ng-if="nb_companies > 0">
-                            <button type="button" class="btn btn-default" ng-class="company_first == 0 ? 'disabled' :''" ng-click="first_company()"><span class="glyphicon glyphicon-fast-backward"></span></button>
-                            <button type="button" class="btn btn-default" ng-class="company_previous == 0 ? 'disabled' :''" ng-click="previous_company()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                            <button type="button" class="btn btn-default" ng-class="company_first == 0 ? 'disabled' :''" ng-click="first_company()"><span class="fa fa-fw fa-fast-backward"></span></button>
+                            <button type="button" class="btn btn-default" ng-class="company_previous == 0 ? 'disabled' :''" ng-click="previous_company()"><span class="fa fa-fw fa-chevron-left"></span></button>
                             <button type="button" class="btn btn-default disabled">{{companie_order}}/{{nb_companies}}</button>
-                            <button type="button" class="btn btn-default" ng-class="company_next == 0 ? 'disabled' :''" ng-click="next_company()"><span class="glyphicon glyphicon-chevron-right"></span></button>
-                            <button type="button" class="btn btn-default" ng-class="company_last == 0 ? 'disabled' :''" ng-click="last_company()"><span class="glyphicon glyphicon-fast-forward"></span></button>
+                            <button type="button" class="btn btn-default" ng-class="company_next == 0 ? 'disabled' :''" ng-click="next_company()"><span class="fa fa-fw fa-chevron-right"></span></button>
+                            <button type="button" class="btn btn-default" ng-class="company_last == 0 ? 'disabled' :''" ng-click="last_company()"><span class="fa fa-fw fa-fast-forward"></span></button>
                         </div>
                     </div>
                 </div>
