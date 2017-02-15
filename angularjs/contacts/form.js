@@ -11,6 +11,7 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
             $http.get('/com_zeapps_contact/contacts/get/' + $routeParams.id).then(function (response) {
                 if (response.status == 200) {
                     $scope.form = response.data;
+                    $scope.form.date_of_birth = new Date($scope.form.date_of_birth);
                 }
             });
         }
