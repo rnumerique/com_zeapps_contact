@@ -62,6 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a href="#" ng-click="setTab(hook.label)">{{ hook.label }}</a>
             </li>
 
+            <!--
             <li role="presentation" ng-class="isTabActive('delivery') ? 'active' : ''"><a href="#" ng-click="setTab('delivery')">Bon de livraison</a></li>
             <li role="presentation" ng-class="isTabActive('purchase') ? 'active' : ''"><a href="#" ng-click="setTab('purchase')">Achat</a></li>
             <li role="presentation" ng-class="isTabActive('receipt') ? 'active' : ''"><a href="#" ng-click="setTab('receipt')">Bon de réception</a></li>
@@ -69,6 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li role="presentation" ng-class="isTabActive('projects') ? 'active' : ''"><a href="#" ng-click="setTab('projects')">Projets</a></li>
             <li role="presentation" ng-class="isTabActive('ticket') ? 'active' : ''"><a href="#" ng-click="setTab('ticket')">Ticket</a></li>
             <li role="presentation" ng-class="isTabActive('activity') ? 'active' : ''"><a href="#" ng-click="setTab('activity')">Activité</a></li>
+            -->
         </ul>
 
 
