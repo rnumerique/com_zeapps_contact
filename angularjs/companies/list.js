@@ -32,7 +32,7 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
         };
 
         $scope.removeCodeNaf = function() {
-            $scope.filters.code_naf = '';
+            delete $scope.filters.code_naf;
             $scope.filters.code_naf_libelle = '';
         };
 
