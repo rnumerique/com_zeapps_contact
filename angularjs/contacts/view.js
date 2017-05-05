@@ -6,7 +6,8 @@ app.controller('ComZeappsContactContactsViewCtrl', ['$scope', '$route', '$routeP
         $scope.$on('comZeappsContact_triggerContactHook', function(event, data){
             $rootScope.$broadcast('comZeappsContact_dataContactHook',
                 {
-                    id_contact: $routeParams.id
+                    id_contact: $routeParams.id,
+                    id_company: $scope.form.id_company
                 }
             );
         });

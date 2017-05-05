@@ -6,6 +6,9 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
         $scope.filters = {
             id_type_account : 'none'
         };
+        $scope.companies = [];
+        $scope.page = 1;
+        $scope.pageSize = 30;
 
         var loadList = function () {
             $http.post('/com_zeapps_contact/companies/getAll').then(function (response) {

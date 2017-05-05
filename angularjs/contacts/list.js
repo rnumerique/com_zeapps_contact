@@ -6,6 +6,9 @@ app.controller('ComZeappsContactContactsListCtrl', ['$scope', '$route', '$routeP
         $scope.filters = {
             id_type_account : 'none'
         };
+        $scope.contacts = [];
+        $scope.page = 1;
+        $scope.pageSize = 30;
 
         var loadList = function () {
             var options = {};

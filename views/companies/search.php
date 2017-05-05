@@ -81,6 +81,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
+    <div class="text-center" ng-show="companies.length > pageSize">
+        <ul uib-pagination total-items="(companies | com_zeapps_contactEntrepriseFilter:filters).length" ng-model="page" items-per-page="pageSize" class="pagination-sm" boundary-links="true"
+            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped table-condensed table-responsive" ng-show="companies.length">
@@ -94,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="company in companies | com_zeapps_contactEntrepriseFilter:filters">
+                <tr ng-repeat="company in companies | com_zeapps_contactEntrepriseFilter:filters | startFrom:(page - 1)*pageSize | limitTo:pageSize">
                     <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.company_name}}</a></td>
                     <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.phone}}</a></td>
                     <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.billing_city}}</a></td>
@@ -110,5 +115,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
+    <div class="text-center" ng-show="companies.length > pageSize">
+        <ul uib-pagination total-items="(companies | com_zeapps_contactEntrepriseFilter:filters).length" ng-model="page" items-per-page="pageSize" class="pagination-sm" boundary-links="true"
+            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+    </div>
 
 </div>
