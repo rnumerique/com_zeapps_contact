@@ -41,9 +41,14 @@ class Contacts extends ZeCtrl
 
 
 
-    public function getAll() {
+    public function getAll($id_company = null) {
         $this->load->model("Zeapps_contacts", "contacts");
-        $contacts = $this->contacts->all();
+
+        $where = [];
+
+        if($id_company)
+            $where['id_company'] = $id_company;
+        $contacts = $this->contacts->all($where);
 
         if ($contacts == false) {
             echo json_encode(array());
