@@ -40,9 +40,9 @@ app.filter('com_zeapps_contactContactFilter', function($filter){
     return function(list, filters){
         if(filters){
             return $filter("filter")(list, function(listItem){
-                if(filters.name_company != undefined && filters.name_company != '') {
-                    var regex = new RegExp(filters.name_company, 'i');
-                    if(listItem.name_company.search(regex) == -1)
+                if(filters.company_name != undefined && filters.company_name != '') {
+                    var regex = new RegExp(filters.company_name, 'i');
+                    if(listItem.company_name.search(regex) == -1)
                         return false;
                 }
                 if(filters.code_naf != undefined && filters.code_naf != '') {
@@ -51,12 +51,12 @@ app.filter('com_zeapps_contactContactFilter', function($filter){
                 }
                 if(filters.zipcode != undefined && filters.zipcode != '') {
                     var regex = new RegExp(filters.zipcode, 'i');
-                    if(listItem.zipcode.search(regex) == -1)
+                    if(listItem.billing_zipcode.search(regex) == -1)
                         return false;
                 }
                 if(filters.city != undefined && filters.city != '') {
                     var regex = new RegExp(filters.city, 'i');
-                    if(listItem.city.search(regex) == -1)
+                    if(listItem.billing_city.search(regex) == -1)
                         return false;
                 }
 
@@ -65,7 +65,7 @@ app.filter('com_zeapps_contactContactFilter', function($filter){
                         return false;
                 }
                 if(filters.country_id != undefined && filters.country_id != '') {
-                    if(listItem.country_id != filters.country_id)
+                    if(listItem.billing_country_id != filters.country_id)
                         return false;
                 }
                 return true;

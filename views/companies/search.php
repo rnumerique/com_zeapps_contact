@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Nom :</label>
-                    <input type="text" class="form-control" ng-model="filters.name_company">
+                    <input type="text" class="form-control" ng-model="filters.company_name">
                 </div>
             </div>
             <div class="col-md-4">
