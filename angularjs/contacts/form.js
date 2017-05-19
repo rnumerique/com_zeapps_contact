@@ -3,8 +3,16 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
 
         $scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_contact");
 
-
         $scope.form = [];
+
+        $scope.loadAccountManager = loadAccountManager;
+        $scope.removeAccountManager = removeAccountManager;
+        $scope.loadCompany = loadCompany;
+        $scope.removeCompany = removeCompany;
+        $scope.success = success;
+        $scope.cancel = cancel;
+        $scope.loadCountryLang = loadCountryLang;
+        $scope.removeCountryLang = removeCountryLang;
 
         // charge la fiche
         if ($routeParams.id && $routeParams.id != 0) {
@@ -16,14 +24,7 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
             });
         }
 
-
-
-
-
-
-
-
-        $scope.loadAccountManager = function () {
+        function loadAccountManager() {
             zeapps_modal.loadModule("com_zeapps_core", "search_user", {}, function(objReturn) {
                 if (objReturn) {
                     $scope.form.id_user_account_manager = objReturn.id;
@@ -33,23 +34,14 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
                     $scope.form.name_user_account_manager = '';
                 }
             });
-        };
+        }
 
-        $scope.removeAccountManager = function() {
+        function removeAccountManager() {
             $scope.form.id_user_account_manager = 0;
             $scope.form.name_user_account_manager = '';
-        };
+        }
 
-
-
-
-
-
-
-
-
-
-        $scope.loadCompany = function () {
+        function loadCompany() {
             zeapps_modal.loadModule("com_zeapps_contact", "search_company", {}, function(objReturn) {
                 //console.log(objReturn);
                 if (objReturn) {
@@ -60,20 +52,14 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
                     $scope.form.name_company = '';
                 }
             });
-        };
+        }
 
-        $scope.removeCompany = function() {
+        function removeCompany() {
             $scope.form.id_company = 0;
             $scope.form.name_company = '';
-        };
+        }
 
-
-
-
-
-
-
-        $scope.success = function () {
+        function success() {
             var $data = {} ;
 
             if ($routeParams.id != 0) {
@@ -125,26 +111,24 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
                 // pour que la page puisse être redirigé
                 $location.path("/ng/com_zeapps_contact/contacts");
             });
-        };
+        }
 
-        $scope.cancel = function () {
+        function cancel() {
             $location.path("/ng/com_zeapps_contact/contacts");
-        };
+        }
 
-
-
-        $scope.loadCountryLang = function () {
+        function loadCountryLang() {
             zeapps_modal.loadModule("com_zeapps_contact", "search_country_lang", {}, function (objReturn) {
 
                 $scope.form.country_lang_name = objReturn.name;
                 $scope.form.country_id = objReturn.id_country;
 
             });
-        };
+        }
 
-        $scope.removeCountryLang = function() {
+        function removeCountryLang() {
             $scope.form.country_lang_name = '';
 
-        };
+        }
 
     }]);

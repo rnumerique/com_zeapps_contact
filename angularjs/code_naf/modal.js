@@ -14,27 +14,20 @@ listModuleModalFunction.push({
 
 
 app.controller('ZeAppsContactsModalCodeNafCtrl', function($scope, $uibModalInstance, $http, titre, option) {
+
     $scope.titre = titre ;
 
+    $scope.cancel = cancel;
+    $scope.loadCodeNaf = loadCodeNaf;
 
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-
-
-
-    var loadList = function () {
-        var options = {};
-        $http.post('/com_zeapps_contact/code_naf/getAll', options).then(function (response) {
-            if (response.status == 200) {
-                $scope.code_naf = response.data ;
-            }
-        });
-    };
     loadList() ;
 
 
-    $scope.loadCodeNaf = function (code_naf_id) {
+    function cancel() {
+        $uibModalInstance.dismiss('cancel');
+    }
+
+    function loadCodeNaf(code_naf_id) {
 
         // search the company
         var code_naf = false ;
@@ -46,6 +39,15 @@ app.controller('ZeAppsContactsModalCodeNafCtrl', function($scope, $uibModalInsta
         }
 
         $uibModalInstance.close(code_naf);
+    }
+
+    function loadList() {
+        var options = {};
+        $http.post('/com_zeapps_contact/code_naf/getAll', options).then(function (response) {
+            if (response.status == 200) {
+                $scope.code_naf = response.data ;
+            }
+        });
     }
 
 }) ;

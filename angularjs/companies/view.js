@@ -12,8 +12,63 @@ app.controller('ComZeappsContactCompaniesViewCtrl', ['$scope', '$route', '$route
         });
 
         $scope.hooks = zeHooks.get('comZeappsContact_EntrepriseHook');
+        $scope.form = [];
 
-        var initNavigation = function() {
+        $scope.edit = edit;
+        $scope.cancel = cancel;
+
+        // charge la fiche
+        if ($routeParams.id && $routeParams.id != 0) {
+            $http.get('/com_zeapps_contact/companies/get/' + $routeParams.id).then(function (response) {
+                if (response.status == 200) {
+                    $scope.form = response.data;
+                }
+            });
+        }
+
+        if($rootScope.companies_search_list == undefined) {
+            $http.post('/com_zeapps_contact/companies/getAll').then(function (response) {
+                if (response.status == 200) {
+                    $scope.companies = response.data;
+
+                    // stock la liste des compagnies pour la navigation par fleche
+                    $rootScope.companies_search_list = response.data;
+
+                    initNavigation();
+                }
+            });
+        }
+        else{
+            initNavigation();
+        }
+
+        /******* gestion de la tabs *********/
+        $scope.currentTab = 'summary';
+        if ($rootScope.comZeappsContactLastShowTabEntreprise) {
+            $scope.currentTab = $rootScope.comZeappsContactLastShowTabEntreprise ;
+        }
+
+        $scope.setTab = function(tab){
+            $rootScope.comZeappsContactLastShowTabEntreprise = tab;
+            $scope.currentTab = tab;
+        };
+
+        $scope.isTabActive = function(tab){
+            return $scope.currentTab === tab;
+        };
+        /******* FIN : gestion de la tabs *********/
+
+        function edit() {
+            var urlRetour = "/ng/com_zeapps_contact/companies/" + $routeParams.id ;
+
+            $location.path("/ng/com_zeapps_contact/companies/" + $routeParams.id + "/edit/retour/" + encodeURI(urlRetour.replace(/\//g,charSepUrlSlash)));
+        }
+
+        function cancel() {
+            $location.path("/ng/com_zeapps_contact/companies");
+        }
+
+        function initNavigation() {
 
             // calcul le nombre de résultat
             $scope.nb_companies = $rootScope.companies_search_list.length;
@@ -71,63 +126,7 @@ app.controller('ComZeappsContactCompaniesViewCtrl', ['$scope', '$route', '$route
                 }
             };
 
-        };
-
-        if($rootScope.companies_search_list == undefined) {
-            $http.post('/com_zeapps_contact/companies/getAll').then(function (response) {
-                if (response.status == 200) {
-                    $scope.companies = response.data;
-
-                    // stock la liste des compagnies pour la navigation par fleche
-                    $rootScope.companies_search_list = response.data;
-
-                    initNavigation();
-                }
-            });
         }
-        else{
-            initNavigation();
-        }
-
-        /******* gestion de la tabs *********/
-        $scope.currentTab = 'summary';
-        if ($rootScope.comZeappsContactLastShowTabEntreprise) {
-            $scope.currentTab = $rootScope.comZeappsContactLastShowTabEntreprise ;
-        }
-
-        $scope.setTab = function(tab){
-            $rootScope.comZeappsContactLastShowTabEntreprise = tab;
-            $scope.currentTab = tab;
-        };
-
-        $scope.isTabActive = function(tab){
-            return $scope.currentTab === tab;
-        };
-        /******* FIN : gestion de la tabs *********/
-
-
-
-
-        $scope.form = [];
-
-        // charge la fiche
-        if ($routeParams.id && $routeParams.id != 0) {
-            $http.get('/com_zeapps_contact/companies/get/' + $routeParams.id).then(function (response) {
-                if (response.status == 200) {
-                    $scope.form = response.data;
-                }
-            });
-        }
-
-        $scope.edit = function () {
-            var urlRetour = "/ng/com_zeapps_contact/companies/" + $routeParams.id ;
-
-            $location.path("/ng/com_zeapps_contact/companies/" + $routeParams.id + "/edit/retour/" + encodeURI(urlRetour.replace(/\//g,charSepUrlSlash)));
-        };
-
-        $scope.cancel = function () {
-            $location.path("/ng/com_zeapps_contact/companies");
-        };
 
 
 
