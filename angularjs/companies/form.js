@@ -3,8 +3,12 @@ app.controller('ComZeappsContactCompaniesFormListCtrl', ['$scope', '$route', '$r
 
         $scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_company");
 
-
         $scope.form = [];
+
+        $scope.loadAccountManager = loadAccountManager;
+        $scope.removeAccountManager = removeAccountManager;
+        $scope.loadParentCompany = loadParentCompany;
+        $scope.removeParentCompany = removeParentCompany;
 
         // charge la fiche
         if ($routeParams.id && $routeParams.id != 0) {
@@ -16,11 +20,7 @@ app.controller('ComZeappsContactCompaniesFormListCtrl', ['$scope', '$route', '$r
         }
 
 
-
-
-
-
-        $scope.loadAccountManager = function () {
+        function loadAccountManager() {
             zeapps_modal.loadModule("com_zeapps_core", "search_user", {}, function(objReturn) {
                 if (objReturn) {
                     $scope.form.id_user_account_manager = objReturn.id;
@@ -30,21 +30,14 @@ app.controller('ComZeappsContactCompaniesFormListCtrl', ['$scope', '$route', '$r
                     $scope.form.name_user_account_manager = '';
                 }
             });
-        };
+        }
 
-        $scope.removeAccountManager = function() {
+        function removeAccountManager() {
             $scope.form.id_user_account_manager = 0;
             $scope.form.name_user_account_manager = '';
-        };
+        }
 
-
-
-
-
-
-
-
-        $scope.loadParentCompany = function () {
+        function loadParentCompany() {
             zeapps_modal.loadModule("com_zeapps_contact", "search_company", {}, function(objReturn) {
                 //console.log(objReturn);
                 if (objReturn) {
@@ -55,12 +48,12 @@ app.controller('ComZeappsContactCompaniesFormListCtrl', ['$scope', '$route', '$r
                     $scope.form.name_parent_company = '';
                 }
             });
-        };
+        }
 
-        $scope.removeParentCompany = function() {
+        function removeParentCompany() {
             $scope.form.id_parent_company = 0;
             $scope.form.name_parent_company = '';
-        };
+        }
 
 
 

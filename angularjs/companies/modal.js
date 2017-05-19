@@ -14,27 +14,28 @@ listModuleModalFunction.push({
 
 
 app.controller('ZeAppsContactsModalCompanyCtrl', function($scope, $uibModalInstance, $http, titre, option) {
+
     $scope.titre = titre ;
 
+    $scope.cancel = cancel;
+    $scope.loadCompany = loadCompany;
 
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
+    loadList() ;
 
-
-
-    var loadList = function () {
+    function loadList() {
         var options = {};
         $http.post('/com_zeapps_contact/companies/getAll', options).then(function (response) {
             if (response.status == 200) {
                 $scope.companies = response.data ;
             }
         });
-    };
-    loadList() ;
+    }
 
+    function cancel() {
+        $uibModalInstance.dismiss('cancel');
+    }
 
-    $scope.loadCompany = function (id_company) {
+    function loadCompany(id_company) {
 
         // search the company
         var company = false ;

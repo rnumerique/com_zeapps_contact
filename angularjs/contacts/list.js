@@ -10,30 +10,35 @@ app.controller('ComZeappsContactContactsListCtrl', ['$scope', '$route', '$routeP
         $scope.page = 1;
         $scope.pageSize = 30;
 
-        var loadList = function () {
+        $scope.loadCountryLang = loadCountryLang;
+        $scope.removeCountryLang = removeCountryLang;
+        $scope.delete = del;
+
+        loadList() ;
+
+        function loadList() {
             var options = {};
             $http.post('/com_zeapps_contact/contacts/getAll', options).then(function (response) {
                 if (response.status == 200) {
                     $scope.contacts = response.data ;
                 }
             });
-        };
-        loadList() ;
+        }
 
-        $scope.loadCountryLang = function () {
+        function loadCountryLang() {
             zeapps_modal.loadModule("com_zeapps_contact", "search_country_lang", {}, function (objReturn) {
                 $scope.filters.country_lang_name = objReturn.name;
                 $scope.filters.country_id = objReturn.id_country;
             });
-        };
+        }
 
-        $scope.removeCountryLang = function() {
+        function removeCountryLang() {
             $scope.filters.country_lang_name = '';
             $scope.filters.country_id = 0;
 
-        };
+        }
 
-        $scope.delete = function (argIdUser) {
+        function del(argIdUser) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: '/assets/angular/popupModalDeBase.html',
@@ -73,7 +78,7 @@ app.controller('ComZeappsContactContactsListCtrl', ['$scope', '$route', '$routeP
                 //console.log("rien");
             });
 
-        };
+        }
 
 
     }]);

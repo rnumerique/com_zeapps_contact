@@ -10,7 +10,15 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
         $scope.page = 1;
         $scope.pageSize = 30;
 
-        var loadList = function () {
+        $scope.loadCodeNaf = loadCodeNaf;
+        $scope.removeCodeNaf = removeCodeNaf;
+        $scope.loadCountryLang = loadCountryLang;
+        $scope.removeCountryLang = removeCountryLang;
+        $scope.delete = del;
+
+        loadList() ;
+
+        function loadList() {
             $http.post('/com_zeapps_contact/companies/getAll').then(function (response) {
                 if (response.status == 200) {
                     $scope.companies = response.data ;
@@ -19,10 +27,8 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
                     $rootScope.companies_search_list = response.data ;
                 }
             });
-        };
-        loadList() ;
-
-        $scope.loadCodeNaf = function () {
+        }
+        function loadCodeNaf() {
             zeapps_modal.loadModule("com_zeapps_contact", "search_code_naf", {}, function(objReturn) {
                 if (objReturn) {
                     $scope.filters.code_naf = objReturn.code_naf;
@@ -32,29 +38,29 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
                     $scope.filters.code_naf_libelle = '';
                 }
             });
-        };
+        }
 
-        $scope.removeCodeNaf = function() {
+        function removeCodeNaf() {
             delete $scope.filters.code_naf;
             $scope.filters.code_naf_libelle = '';
-        };
+        }
 
-        $scope.loadCountryLang = function () {
+        function loadCountryLang() {
             zeapps_modal.loadModule("com_zeapps_contact", "search_country_lang", {}, function (objReturn) {
                 $scope.filters.country_lang_name = objReturn.name;
                 $scope.filters.country_id = objReturn.id_country;
             });
-        };
+        }
 
-        $scope.removeCountryLang = function() {
+        function removeCountryLang() {
             $scope.filters.country_lang_name = '';
             $scope.filters.country_id = 0;
 
-        };
+        }
 
 
 
-        $scope.delete = function (argIdUser) {
+        function del(argIdUser) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: '/assets/angular/popupModalDeBase.html',
@@ -94,7 +100,7 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
                 //console.log("rien");
             });
 
-        };
+        }
 
 
     }]);
