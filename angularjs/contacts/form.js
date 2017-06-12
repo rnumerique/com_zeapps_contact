@@ -43,7 +43,6 @@ app.controller('ComZeappsContactContactsFormListCtrl', ['$scope', '$route', '$ro
 
         function loadCompany() {
             zeapps_modal.loadModule("com_zeapps_contact", "search_company", {}, function(objReturn) {
-                //console.log(objReturn);
                 if (objReturn) {
                     $scope.form.id_company = objReturn.id;
                     $scope.form.name_company = objReturn.company_name;

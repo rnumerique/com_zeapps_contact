@@ -97,7 +97,6 @@ app.controller('ComZeappsContactCompaniesListCtrl', ['$scope', '$route', '$route
                 }
 
             }, function () {
-                //console.log("rien");
             });
 
         }

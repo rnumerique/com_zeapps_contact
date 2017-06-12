@@ -75,7 +75,6 @@ app.controller('ComZeappsContactContactsListCtrl', ['$scope', '$route', '$routeP
                 }
 
             }, function () {
-                //console.log("rien");
             });
 
         }
