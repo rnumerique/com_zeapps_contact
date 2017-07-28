@@ -18,11 +18,11 @@ app.filter("com_zeapps_contactContactFilter", function($filter){
 						return false;
 				}
 
-				if(filters.id_account_family != undefined && filters.id_account_family != "none") {
+				if(filters.id_account_family != undefined && filters.id_account_family != "") {
 					if(listItem.id_account_family != filters.id_account_family)
 						return false;
 				}
-				if(filters.id_topology != undefined && filters.id_topology != "none") {
+				if(filters.id_topology != undefined && filters.id_topology != "") {
 					if(listItem.id_topology != filters.id_topology)
 						return false;
 				}
