@@ -1,36 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<div id="breadcrumb">Entreprises</div>
 <div id="content">
-
-
-
-
     <form>
         <div class="well">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="titleWell">{{form.title_name + ' ' + form.first_name + ' ' + form.last_name}}</div>
+                    <div class="titleWell">
+                        {{form.title_name + ' ' + form.first_name + ' ' + form.last_name}}
+                    </div>
+                    <div>
+                        <small>{{form.name_company}}</small>
+                    </div>
                 </div>
 
                 <div class="col-md-3">
-                    <strong>Contact :</strong><br>
-                    <span ng-if="form.phone"><i class="fa fa-fw fa-phone"></i> {{form.phone}}<br></span>
-                    <span ng-if="form.mobile"><i class="fa fa-fw fa-mobile"></i> {{form.mobile}}<br></span>
-                    <span ng-if="form.other_phone"><i class="fa fa-fw fa-phone"></i> {{form.other_phone}}<br></span>
-                    <span ng-if="form.email"><i class="fa fa-fw fa-envelope-o"></i> {{form.email}}<br></span>
-                    <span ng-if="form.fax"><i class="fa fa-fw fa-fax"></i> {{form.fax}}<br></span>
+                    <strong>Topologie : </strong>{{form.name_topology}} <br>
+                    <strong>Famille : </strong>{{form.name_account_family}}
                 </div>
 
                 <div class="col-md-3">
-                    <strong>Adresse :</strong><br>
-                    <span ng-if="form.address_1 != ''">{{form.address_1}}<br></span>
-                    <span ng-if="form.address_2 != ''">{{form.address_2}}<br></span>
-                    <span ng-if="form.address_3 != ''">{{form.address_3}}<br></span>
-                    <span ng-if="form.zipcode != '' || form.city != ''">{{form.zipcode}} {{form.city}}<br></span>
-                    <span ng-if="form.state != ''">{{form.state}}<br></span>
-                    <span ng-if="form.country_name != ''">{{form.country_name}}<br></span>
+                    <strong>Manager : </strong>{{form.name_user_account_manager}}
                 </div>
 
                 <div class="col-md-3">
@@ -52,8 +42,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         </div>
 
-
-
         <ul role="tablist" class="nav nav-tabs">
             <li role="presentation" ng-class="isTabActive('summary') ? 'active' : ''"><a href="#" ng-click="setTab('summary')">Résumé</a></li>
 
@@ -62,20 +50,102 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
         </ul>
 
-
-
-        <div class="row" ng-show="isTabActive('summary')">
-            <div class="col-md-12">
-                sommaire
-            </div>
-        </div>
-
         <div ng-show="isTabActive(hook.label)" ng-repeat="hook in hooks">
             <div ng-include="hook.template">
             </div>
         </div>
 
+        <div ng-show="isTabActive('summary')">
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>Date de naissance : </strong>{{form.date_of_birth | date:'dd/MM/yyyy'}}
+                </div>
+                <div class="col-md-4">
+                    <strong>Service : </strong>{{form.name_activity_area}}
+                </div>
+                <div class="col-md-4">
+                    <strong>Fonction : </strong>{{form.company_number}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <strong>Information de contact : </strong>
+                    </div>
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <i class="fa fa-fw fa-mobile"></i> {{form.mobile}}
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-fw fa-phone"></i> {{form.phone}}
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-fw fa-phone"></i> {{form.other_phone}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <i class="fa fa-fw fa-fax"></i> {{form.fax}}
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-fw fa-skype"></i> {{form.skype_id}}
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-fw fa-twitter"></i> {{form.twitter}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <i class="fa fa-fw fa-globe"></i> {{form.website_url}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <strong>Assistant(e) : </strong>
+                    </div>
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <i class="fa fa-fw fa-user"></i> {{form.assistant}}
+                            </div>
+                            <div class="col-md-6">
+                                <i class="fa fa-fw fa-phone"></i> {{form.assistant_phone}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <strong>Adresse de facturation :</strong>
+                    </div>
+                    <div class="well">
+                        <span ng-if="form.address_1 != ''">{{form.address_1}}<br></span>
+                        <span ng-if="form.address_2 != ''">{{form.address_2}}<br></span>
+                        <span ng-if="form.address_3 != ''">{{form.address_3}}<br></span>
+                        <span ng-if="form.zipcode != '' || form.city != ''">{{form.zipcode}} {{form.city}}<br></span>
+                        <span ng-if="form.state != ''">{{form.state}}<br></span>
+                        <span ng-if="form.country_name != ''">{{form.country_name}}<br></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <strong>Commentaire :</strong>
+                    </div>
+                    <div class="well">
+                        {{form.comment}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form>
-
-
 </div>

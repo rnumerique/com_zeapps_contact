@@ -39,28 +39,65 @@ class Contacts extends ZeCtrl
 
 
 
+    public function context() {
+        $this->load->model('Zeapps_account_families', 'account_families');
+        $this->load->model('Zeapps_topologies', 'topologies');
+
+        if(!$account_families = $this->account_families->all()){
+            $account_families = [];
+        }
+
+        if(!$topologies = $this->topologies->all()){
+            $topologies = [];
+        }
+
+        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies));
+    }
 
 
     public function getAll($id_company = null) {
         $this->load->model("Zeapps_contacts", "contacts");
+        $this->load->model('Zeapps_account_families', 'account_families');
+        $this->load->model('Zeapps_topologies', 'topologies');
 
         $where = [];
 
         if($id_company)
             $where['id_company'] = $id_company;
-        $contacts = $this->contacts->all($where);
 
-        if ($contacts == false) {
-            echo json_encode(array());
-        } else {
-            echo json_encode($contacts);
+        if(!$account_families = $this->account_families->all()){
+            $account_families = [];
         }
 
+        if(!$topologies = $this->topologies->all()){
+            $topologies = [];
+        }
+
+        if(!$contacts = $this->contacts->all($where)){
+            $contacts = [];
+        }
+
+        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'contacts' => $contacts));
     }
 
     public function get($id) {
         $this->load->model("Zeapps_contacts", "contacts");
-        echo json_encode($this->contacts->get($id));
+        $this->load->model('Zeapps_account_families', 'account_families');
+        $this->load->model('Zeapps_topologies', 'topologies');
+
+        if(!$account_families = $this->account_families->all()){
+            $account_families = [];
+        }
+
+        if(!$topologies = $this->topologies->all()){
+            $topologies = [];
+        }
+
+        if(!$contact = $this->contacts->get($id)){
+            $contact = [];
+        }
+
+        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'contact' => $contact));
     }
 
     public function save() {
@@ -81,7 +118,7 @@ class Contacts extends ZeCtrl
             $id = $this->contacts->insert($data);
         }
 
-        echo json_encode($id);
+        echo $id;
     }
 
 
