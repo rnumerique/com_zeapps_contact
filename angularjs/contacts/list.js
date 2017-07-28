@@ -3,9 +3,48 @@ app.controller("ComZeappsContactContactsListCtrl", ["$scope", "$route", "$routeP
 
 		$scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_contact");
 
-		$scope.filters = {
-			id_account_family : "none",
-			id_topology : "none"
+		$scope.filter = {
+			model: {},
+			options: {
+				main: [
+					{
+						format: 'input',
+						field: 'nom',
+						type: 'text',
+						label: 'Nom'
+					},
+					{
+						format: 'select',
+						field: 'id_account_family',
+						type: 'text',
+						label: 'Famille',
+						options: []
+					},
+					{
+						format: 'select',
+						field: 'id_topology',
+						type: 'text',
+						label: 'Topologie',
+						options: []
+					}
+				],
+				secondaries: [
+					{
+						format: 'input',
+						field: 'nom',
+						type: 'text',
+						label: 'Ville',
+						size: 6
+					},
+					{
+						format: 'input',
+						field: 'nom',
+						type: 'text',
+						label: 'Code Postal',
+						size: 6
+					}
+				]
+			}
 		};
 		$scope.contacts = [];
 		$scope.page = 1;
@@ -22,8 +61,8 @@ app.controller("ComZeappsContactContactsListCtrl", ["$scope", "$route", "$routeP
 			$http.post("/com_zeapps_contact/contacts/getAll", options).then(function (response) {
 				if (response.status == 200) {
 					$scope.contacts = response.data.contacts ;
-					$scope.topologies = response.data.topologies ;
-					$scope.account_families = response.data.account_families ;
+					$scope.filter.options.main[1].options = response.data.account_families;
+					$scope.filter.options.main[2].options = response.data.topologies;
 				}
 			});
 		}
