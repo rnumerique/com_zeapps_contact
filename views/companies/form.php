@@ -8,19 +8,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <form>
         <div class="well">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Type de compte</label>
-                        <select ng-model="form.id_type_account" class="form-control">
-                            <option>xxxxxxxxxxxx</option>
-                            <option>xxxxxxxxxxxx</option>
-                            <option>xxxxxxxxxxxx</option>
-                            <option>xxxxxxxxxxxx</option>
-                            <option>xxxxxxxxxxxx</option>
+                        <select ng-model="form.id_account_family" class="form-control">
+                            <option ng-repeat="account_family in account_families" value="{{account_family.id}}">
+                                {{ account_family.label }}
+                            </option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Topologie</label>
+                        <select ng-model="form.id_topology" class="form-control">
+                            <option ng-repeat="topology in topologies" value="{{topology.id}}">
+                                {{ topology.label }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Compte comptable</label>
                         <select ng-model="form.accounting_number" class="form-control">
@@ -32,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Gestionnaire du Compte</label>
                         <div class="input-group">

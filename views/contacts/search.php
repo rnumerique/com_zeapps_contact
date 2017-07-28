@@ -1,48 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<div id="breadcrumb">Contacts</div>
+<div id="breadcrumb" class="clearfix">
+    <div class="pull-right form-inline">
+        <input type="text" class="form-control input-sm" ng-model="filters.name" placeholder="Nom">
+        <select ng-model="filters.id_account_family" class="form-control input-sm">
+            <option value="none">Famille</option>
+            <option ng-repeat="account_family in account_families" value="{{account_family.id}}">
+                {{ account_family.label }}
+            </option>
+        </select>
+        <select ng-model="filters.id_topology" class="form-control input-sm">
+            <option value="none">Topologie</option>
+            <option ng-repeat="topology in topologies" value="{{topology.id}}">
+                {{ topology.label }}
+            </option>
+        </select>
+
+        <span ng-click="shownFilter = !shownFilter">
+            <i class="fa fa-filter"></i> Filtres <i class="fa" ng-class="shownFilter ? 'fa-caret-up' : 'fa-caret-down'"></i>
+        </span>
+    </div>
+    <h6>Contacts</h6>
+</div>
 <div id="content">
 
-
-    <div class="row">
-        <div class="col-md-12">
-            <a href="/ng/com_zeapps_contact/contacts/new" class="btn btn-success btn-xs pull-right">
-                <i class="fa fa-fw fa-plus"></i> contact
-            </a>
-            <span ng-click="shownFilter = !shownFilter">
-                <i class="fa fa-filter"></i> Filtres <i class="fa" ng-class="shownFilter ? 'fa-caret-up' : 'fa-caret-down'"></i>
-            </span>
-        </div>
-    </div>
-
     <div class="well" ng-if="shownFilter">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Prénom :</label>
-                    <input type="text" class="form-control" ng-model="filters.first_name">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Nom :</label>
-                    <input type="text" class="form-control" ng-model="filters.last_name">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label>Type de compte</label>
-                <select ng-model="filters.id_type_account" class="form-control">
-                    <option value="none">tous</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                </select>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -61,13 +44,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="input-group">
                     <input type="text" ng-model="filters.country_lang_name" class="form-control" disabled>
                     <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeCountryLang()"
-                                        ng-show="filters.country_id != 0 && filters.country_id != undefined">x
-                                </button>
-                            <button class="btn btn-default" type="button" ng-click="loadCountryLang()">...</button>
-                            </span>
+                        <button class="btn btn-default" type="button" ng-click="removeCountryLang()"
+                                ng-show="filters.country_id != 0 && filters.country_id != undefined">x
+                        </button>
+                    <button class="btn btn-default" type="button" ng-click="loadCountryLang()">...</button>
+                    </span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/ng/com_zeapps_contact/contacts/new" class="btn btn-success btn-xs pull-right">
+                <i class="fa fa-fw fa-plus"></i> contact
+            </a>
         </div>
     </div>
 

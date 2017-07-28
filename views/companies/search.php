@@ -1,40 +1,32 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<div id="breadcrumb">Entreprises</div>
-<div id="content">
+<div id="breadcrumb" class="clearfix">
+    <div class="pull-right form-inline">
+        <input type="text" class="form-control input-sm" ng-model="filters.name" placeholder="Nom">
+        <select ng-model="filters.id_account_family" class="form-control input-sm">
+            <option value="none">Famille</option>
+            <option ng-repeat="account_family in account_families" value="{{account_family.id}}">
+                {{ account_family.label }}
+            </option>
+        </select>
+        <select ng-model="filters.id_topology" class="form-control input-sm">
+            <option value="none">Topologie</option>
+            <option ng-repeat="topology in topologies" value="{{topology.id}}">
+                {{ topology.label }}
+            </option>
+        </select>
 
-
-    <div class="row">
-        <div class="col-md-12">
-            <a href="/ng/com_zeapps_contact/companies/new" class="btn btn-success btn-xs pull-right">
-                <i class="fa fa-fw fa-plus"></i> entreprise
-            </a>
-            <span ng-click="shownFilter = !shownFilter">
-                <i class="fa fa-filter"></i> Filtres <i class="fa" ng-class="shownFilter ? 'fa-caret-up' : 'fa-caret-down'"></i>
-            </span>
-        </div>
+        <span ng-click="shownFilter = !shownFilter">
+            <i class="fa fa-filter"></i> Filtres <i class="fa" ng-class="shownFilter ? 'fa-caret-up' : 'fa-caret-down'"></i>
+        </span>
     </div>
+    <h6>Entreprises</h6>
+</div>
+<div id="content">
 
     <div class="well" ng-if="shownFilter">
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Nom :</label>
-                    <input type="text" class="form-control" ng-model="filters.company_name">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label>Type de compte</label>
-                <select ng-model="filters.id_type_account" class="form-control">
-                    <option value="none">tous</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                </select>
-            </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Code NAF</label>
@@ -78,6 +70,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/ng/com_zeapps_contact/companies/new" class="btn btn-success btn-xs pull-right">
+                <i class="fa fa-fw fa-plus"></i> entreprise
+            </a>
         </div>
     </div>
 

@@ -2,6 +2,28 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
+/********** CONFIG MENU ************/
+$tabMenu = array () ;
+$tabMenu["id"] = "com_ze_apps_contact_account_families" ;
+$tabMenu["space"] = "com_ze_apps_config" ;
+$tabMenu["label"] = "Familles de compte" ;
+$tabMenu["fa-icon"] = "tasks" ;
+$tabMenu["url"] = "/ng/com_zeapps/account_families" ;
+$tabMenu["order"] = 35 ;
+$menuLeft[] = $tabMenu ;
+
+
+
+$tabMenu = array () ;
+$tabMenu["id"] = "com_ze_apps_project_topologies" ;
+$tabMenu["space"] = "com_ze_apps_config" ;
+$tabMenu["label"] = "Topologies" ;
+$tabMenu["fa-icon"] = "tasks" ;
+$tabMenu["url"] = "/ng/com_zeapps/topologies" ;
+$tabMenu["order"] = 36 ;
+$menuLeft[] = $tabMenu ;
+
+
 
 /********* insert in essential menu *********/
 $tabMenu = array () ;

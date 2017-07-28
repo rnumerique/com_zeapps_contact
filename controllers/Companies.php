@@ -40,22 +40,59 @@ class Companies extends ZeCtrl
 
 
 
+    public function context() {
+        $this->load->model('Zeapps_account_families', 'account_families');
+        $this->load->model('Zeapps_topologies', 'topologies');
 
+        if(!$account_families = $this->account_families->all()){
+            $account_families = [];
+        }
+
+        if(!$topologies = $this->topologies->all()){
+            $topologies = [];
+        }
+
+        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies));
+    }
 
     public function getAll() {
         $this->load->model("Zeapps_companies", "companies");
-        $companies = $this->companies->all();
+        $this->load->model('Zeapps_account_families', 'account_families');
+        $this->load->model('Zeapps_topologies', 'topologies');
 
-        if ($companies == false) {
-            echo json_encode(array());
-        } else {
-            echo json_encode($companies);
+        if(!$account_families = $this->account_families->all()){
+            $account_families = [];
         }
+
+        if(!$topologies = $this->topologies->all()){
+            $topologies = [];
+        }
+
+        if(!$companies = $this->companies->all()){
+            $companies = [];
+        }
+
+        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'companies' => $companies));
     }
 
     public function get($id) {
         $this->load->model("Zeapps_companies", "companies");
-        echo json_encode($this->companies->get($id));
+        $this->load->model('Zeapps_account_families', 'account_families');
+        $this->load->model('Zeapps_topologies', 'topologies');
+
+        if(!$account_families = $this->account_families->all()){
+            $account_families = [];
+        }
+
+        if(!$topologies = $this->topologies->all()){
+            $topologies = [];
+        }
+
+        if(!$company = $this->companies->get($id)){
+            $company = [];
+        }
+
+        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'company' => $company));
     }
 
     public function save() {
