@@ -30,6 +30,9 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
 				if (response.status == 200) {
 					$scope.account_families = response.data.account_families;
 					$scope.topologies = response.data.topologies;
+
+                    $scope.form.id_user_account_manager = $rootScope.user.id;
+                    $scope.form.name_user_account_manager =  $rootScope.user.firstname + " " +  $rootScope.user.lastname;
 				}
 			});
 		}

@@ -59,7 +59,7 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
 		loadList() ;
 
 		function loadList() {
-			$http.post("/com_zeapps_contact/companies/getAll").then(function (response) {
+			$http.get("/com_zeapps_contact/companies/getAll").then(function (response) {
 				if (response.status == 200) {
 					$scope.companies = response.data.companies ;
 					$scope.filter.options.main[1].options = response.data.account_families;
