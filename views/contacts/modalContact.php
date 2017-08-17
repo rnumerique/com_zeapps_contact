@@ -10,6 +10,7 @@
                 <thead>
                 <tr>
                     <th>Nom</th>
+                    <th>Entreprise</th>
                     <th>Téléphone</th>
                     <th>Ville</th>
                     <th>Gestionnaire du compte</th>
@@ -18,6 +19,7 @@
                 <tbody>
                 <tr ng-repeat="contact in contacts">
                     <td><a href="#" ng-click="loadContact(contact)">{{contact.last_name + ' ' + contact.first_name}}</a></td>
+                    <td><a href="#" ng-click="loadContact(contact)">{{contact.name_company}}</a></td>
                     <td><a href="#" ng-click="loadContact(contact)">{{contact.phone}}</a></td>
                     <td><a href="#" ng-click="loadContact(contact)">{{contact.city}}</a></td>
                     <td><a href="#" ng-click="loadContact(contact)">{{contact.name_user_account_manager}}</a></td>
