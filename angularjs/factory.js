@@ -5,7 +5,9 @@ app.config(["$provide",
 
 			zeHttp.contact = {
 				company : {
-					get : get_company
+					get : get_company,
+					all : getAll_company,
+					modal : modal_company
 				},
 				contact : {
 					get : get_contact,
@@ -36,6 +38,12 @@ app.config(["$provide",
 
 			function get_company(id){
 				return zeHttp.get("/com_zeapps_contact/companies/get/" + id);
+			}
+			function getAll_company(){
+				return zeHttp.get("/com_zeapps_contact/companies/getAll");
+			}
+			function modal_company(limit, offset){
+				return zeHttp.get("/com_zeapps_contact/companies/modal/" + limit + "/" + offset);
 			}
 
 			function get_contact(id){

@@ -75,6 +75,18 @@ class Companies extends ZeCtrl
         echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'companies' => $companies));
     }
 
+    public function modal($limit = 15, $offset = 0) {
+        $this->load->model("Zeapps_companies", "companies");
+
+        $total = $this->companies->count();
+
+        if(!$companies = $this->companies->limit($limit, $offset)->all()){
+            $companies = [];
+        }
+
+        echo json_encode(array("data" => $companies, "total" => $total));
+    }
+
     public function get($id) {
         $this->load->model("Zeapps_companies", "companies");
         $this->load->model('Zeapps_account_families', 'account_families');
