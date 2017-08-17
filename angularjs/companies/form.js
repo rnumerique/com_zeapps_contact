@@ -1,9 +1,23 @@
-app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "zeapps_modal",
-	function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal) {
+app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "zeapps_modal", "zeHttp",
+	function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal, zhttp) {
 
 		$scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_company");
 
 		$scope.form = [];
+
+		$scope.accountManagerHttp = zhttp.app.user.modal;
+		$scope.accountManagerFields = [
+			{label:'Prénom',key:'firstname'},
+			{label:'Nom',key:'lastname'}
+		];
+
+		$scope.parentCompanyHttp = zhttp.contact.company.modal;
+		$scope.parentCompanyFields = [
+			{label:'Nom',key:'company_name'},
+			{label:'Téléphone',key:'phone'},
+			{label:'Ville',key:'billing_city'},
+			{label:'Gestionnaire du compte',key:'name_user_account_manager'}
+		];
 
 		$scope.loadAccountManager = loadAccountManager;
 		$scope.removeAccountManager = removeAccountManager;
@@ -33,16 +47,14 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
 		}
 
 
-		function loadAccountManager() {
-			zeapps_modal.loadModule("com_zeapps_core", "search_user", {}, function(objReturn) {
-				if (objReturn) {
-					$scope.form.id_user_account_manager = objReturn.id;
-					$scope.form.name_user_account_manager = objReturn.firstname + " " + objReturn.lastname;
-				} else {
-					$scope.form.id_user_account_manager = 0;
-					$scope.form.name_user_account_manager = "";
-				}
-			});
+		function loadAccountManager(user) {
+            if (user) {
+                $scope.form.id_user_account_manager = user.id;
+                $scope.form.name_user_account_manager = user.firstname + " " + user.lastname;
+            } else {
+                $scope.form.id_user_account_manager = 0;
+                $scope.form.name_user_account_manager = "";
+            }
 		}
 
 		function removeAccountManager() {
@@ -50,16 +62,16 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
 			$scope.form.name_user_account_manager = "";
 		}
 
-		function loadParentCompany() {
+		function loadParentCompany(company) {
+            if (company) {
+                $scope.form.id_parent_company = company.id;
+                $scope.form.name_parent_company = company.company_name;
+            } else {
+                $scope.form.id_parent_company = 0;
+                $scope.form.name_parent_company = "";
+            }
 			zeapps_modal.loadModule("com_zeapps_contact", "search_company", {}, function(objReturn) {
 				//console.log(objReturn);
-				if (objReturn) {
-					$scope.form.id_parent_company = objReturn.id;
-					$scope.form.name_parent_company = objReturn.company_name;
-				} else {
-					$scope.form.id_parent_company = 0;
-					$scope.form.name_parent_company = "";
-				}
 			});
 		}
 

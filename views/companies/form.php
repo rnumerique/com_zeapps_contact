@@ -51,7 +51,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <button class="btn btn-default" type="button" ng-click="removeAccountManager()"
                                         ng-show="form.id_user_account_manager != 0 && form.id_user_account_manager != undefined">x
                                 </button>
-                                <button class="btn btn-default" type="button" ng-click="loadAccountManager()">...</button>
+                                <button class="btn btn-default" type="button"
+                                        ze-modalselection="loadAccountManager"
+                                        data-http="accountManagerHttp"
+                                        data-fields="accountManagerFields"
+                                        data-title="Choisir un utilisateur">...</button>
                             </span>
                         </div>
                     </div>
@@ -78,7 +82,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <button class="btn btn-default" type="button" ng-click="removeParentCompany()"
                                         ng-show="form.id_parent_company != 0 && form.id_parent_company != undefined">x
                                 </button>
-                                <button class="btn btn-default" type="button" ng-click="loadParentCompany()">...</button>
+                                <button class="btn btn-default" type="button"
+                                        ze-modalselection="loadParentCompany"
+                                        data-http="parentCompanyHttp"
+                                        data-fields="parentCompanyFields"
+                                        data-title="Choisir une entreprise">...</button>
                             </span>
                         </div>
                     </div>
