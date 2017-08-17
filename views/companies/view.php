@@ -58,18 +58,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div ng-show="isTabActive('summary')">
             <div class="row">
                 <div class="col-md-4">
-                    <strong>Activité : </strong>{{form.name_activity_area}}
+                    <strong>Code naf : </strong>{{form.code_naf_libelle}}
                 </div>
                 <div class="col-md-4">
                     <strong>SIRET : </strong>{{form.company_number}}
                 </div>
-                <div class="col-md-4">
-                    <strong>Code naf : </strong>{{form.code_naf_libelle}}
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <strong>Chiffre d'affaire : </strong>{{form.turnover | currency:'€'}}
+                    <strong>Chiffre d'affaires : </strong>{{form.turnover | currency:'€'}}
                 </div>
                 <div class="col-md-4">
                     <strong>Compte comptable : </strong>{{form.accounting_number}}
