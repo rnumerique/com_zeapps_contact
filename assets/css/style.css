@@ -10,3 +10,8 @@
     font-size: 1.5em;
     font-weight: bold;
 }
+.titleWell small,
+.titleWell .small{
+    font-size: .75em;
+    font-weight: normal;
+}
