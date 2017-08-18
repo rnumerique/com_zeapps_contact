@@ -1,18 +1,35 @@
-app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "zeapps_modal",
-	function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal) {
+app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "zeapps_modal", "zeHttp",
+	function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal, zhttp) {
 
 		$scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_contact");
 
 		$scope.form = [];
 
+        $scope.accountManagerHttp = zhttp.app.user.modal;
+        $scope.accountManagerFields = [
+            {label:'Prénom',key:'firstname'},
+            {label:'Nom',key:'lastname'}
+        ];
+
+        $scope.companyHttp = zhttp.contact.company.modal;
+        $scope.companyFields = [
+            {label:'Nom',key:'company_name'},
+            {label:'Téléphone',key:'phone'},
+            {label:'Ville',key:'billing_city'},
+            {label:'Gestionnaire du compte',key:'name_user_account_manager'}
+        ];
+
+        $scope.countriesHttp = zhttp.app.countries.modal;
+        $scope.countriesFields = [
+            {label:'Code ISO',key:'iso_code'},
+            {label:'Pays',key:'name'}
+        ];
+
 		$scope.loadAccountManager = loadAccountManager;
-		$scope.removeAccountManager = removeAccountManager;
 		$scope.loadCompany = loadCompany;
-		$scope.removeCompany = removeCompany;
+        $scope.loadCountry = loadCountry;
 		$scope.success = success;
 		$scope.cancel = cancel;
-		$scope.loadCountryLang = loadCountryLang;
-		$scope.removeCountryLang = removeCountryLang;
 
 		// charge la fiche
 		if ($routeParams.id && $routeParams.id != 0) {
@@ -37,39 +54,25 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
 			});
 		}
 
-		function loadAccountManager() {
-			zeapps_modal.loadModule("com_zeapps_core", "search_user", {}, function(objReturn) {
-				if (objReturn) {
-					$scope.form.id_user_account_manager = objReturn.id;
-					$scope.form.name_user_account_manager = objReturn.firstname + " " + objReturn.lastname;
-				} else {
-					$scope.form.id_user_account_manager = 0;
-					$scope.form.name_user_account_manager = "";
-				}
-			});
-		}
+        function loadAccountManager(user) {
+            if (user) {
+                $scope.form.id_user_account_manager = user.id;
+                $scope.form.name_user_account_manager = user.firstname + " " + user.lastname;
+            } else {
+                $scope.form.id_user_account_manager = 0;
+                $scope.form.name_user_account_manager = "";
+            }
+        }
 
-		function removeAccountManager() {
-			$scope.form.id_user_account_manager = 0;
-			$scope.form.name_user_account_manager = "";
-		}
-
-		function loadCompany() {
-			zeapps_modal.loadModule("com_zeapps_contact", "search_company", {}, function(objReturn) {
-				if (objReturn) {
-					$scope.form.id_company = objReturn.id;
-					$scope.form.name_company = objReturn.company_name;
-				} else {
-					$scope.form.id_company = 0;
-					$scope.form.name_company = "";
-				}
-			});
-		}
-
-		function removeCompany() {
-			$scope.form.id_company = 0;
-			$scope.form.name_company = "";
-		}
+        function loadCompany(company) {
+            if (company) {
+                $scope.form.id_company = company.id;
+                $scope.form.name_company = company.company_name;
+            } else {
+                $scope.form.id_company = 0;
+                $scope.form.name_company = "";
+            }
+        }
 
 		function success() {
 			var $data = {} ;
@@ -142,18 +145,16 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
 			$location.path("/ng/com_zeapps_contact/contacts");
 		}
 
-		function loadCountryLang() {
-			zeapps_modal.loadModule("com_zeapps_contact", "search_country_lang", {}, function (objReturn) {
+        function loadCountry(code_naf) {
+            if (code_naf) {
+                $scope.form.country_id = code_naf.id;
+                $scope.form.country_name = code_naf.name;
+            } else {
+                $scope.form.country_id = 0;
+                $scope.form.country_name = "";
+            }
+        }
 
-				$scope.form.country_lang_name = objReturn.name;
-				$scope.form.country_id = objReturn.id_country;
 
-			});
-		}
-
-		function removeCountryLang() {
-			$scope.form.country_lang_name = "";
-
-		}
 
 	}]);

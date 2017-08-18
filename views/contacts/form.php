@@ -41,17 +41,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Gestionnaire du Compte</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.name_user_account_manager" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.id_user_account_manager">
 
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeAccountManager()"
-                                        ng-show="form.id_user_account_manager != 0 && form.id_user_account_manager != undefined">x
-                                </button>
-                                <button class="btn btn-default" type="button" ng-click="loadAccountManager()">...</button>
-                            </span>
-                        </div>
+                        <span   ze-modalsearch="loadAccountManager"
+                                data-http="accountManagerHttp"
+                                data-model="form.name_user_account_manager"
+                                data-fields="accountManagerFields"
+                                data-title="Choisir un utilisateur"></span>
                     </div>
                 </div>
             </div>
@@ -93,17 +88,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Société</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.name_company" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.id_company">
 
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeCompany()"
-                                        ng-show="form.id_company != 0 && form.id_company != undefined">x
-                                </button>
-                            <button class="btn btn-default" type="button" ng-click="loadCompany()">...</button>
-                            </span>
-                        </div>
+                        <span   ze-modalsearch="loadCompany"
+                                data-http="companyHttp"
+                                data-model="form.name_company"
+                                data-fields="companyFields"
+                                data-title="Choisir une entreprise"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -237,15 +227,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <div class="form-group">
                         <label>Pays</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.country_lang_name" class="form-control" disabled>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeCountryLang()"
-                                        ng-show="form.country_lang != '' && form.country_lang != undefined">x
-                                </button>
-                            <button class="btn btn-default" type="button" ng-click="loadCountryLang()">...</button>
-                            </span>
-                        </div>
+
+                        <span   ze-modalsearch="loadCountry"
+                                data-http="countriesHttp"
+                                data-model="form.country_name"
+                                data-fields="countriesFields"
+                                data-title="Choisir un pays"></span>
                     </div>
                 </div>
             </div>

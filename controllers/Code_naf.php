@@ -20,6 +20,11 @@ class Code_naf extends ZeCtrl
 
 
 
+    public function get($id) {
+        $this->load->model("Zeapps_code_naf", "code_naf");
+        echo json_encode($this->code_naf->get($id));
+    }
+
     public function getAll() {
         $this->load->model("Zeapps_code_naf", "code_naf");
         $code_naf = $this->code_naf->all();
@@ -32,11 +37,18 @@ class Code_naf extends ZeCtrl
 
     }
 
-    public function get($id) {
+    public function modal($limit = 15, $offset = 0)
+    {
         $this->load->model("Zeapps_code_naf", "code_naf");
-        echo json_encode($this->code_naf->get($id));
-    }
 
+        $total = $this->code_naf->count();
+
+        if(!$code_naf = $this->code_naf->limit($limit, $offset)->all()){
+            $code_naf = [];
+        }
+
+        echo json_encode(array("data" => $code_naf, "total" => $total));
+    }
 
 
 }

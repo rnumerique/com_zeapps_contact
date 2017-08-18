@@ -43,21 +43,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Gestionnaire du Compte</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.name_user_account_manager" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.id_user_account_manager">
 
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeAccountManager()"
-                                        ng-show="form.id_user_account_manager != 0 && form.id_user_account_manager != undefined">x
-                                </button>
-                                <button class="btn btn-default" type="button"
-                                        ze-modalselection="loadAccountManager"
-                                        data-http="accountManagerHttp"
-                                        data-fields="accountManagerFields"
-                                        data-title="Choisir un utilisateur">...</button>
-                            </span>
-                        </div>
+                        <span   ze-modalsearch="loadAccountManager"
+                                data-http="accountManagerHttp"
+                                data-model="form.name_user_account_manager"
+                                data-fields="accountManagerFields"
+                                data-title="Choisir un utilisateur"></span>
                     </div>
                 </div>
             </div>
@@ -74,21 +65,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Société Mère</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.name_parent_company" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.id_parent_company">
 
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeParentCompany()"
-                                        ng-show="form.id_parent_company != 0 && form.id_parent_company != undefined">x
-                                </button>
-                                <button class="btn btn-default" type="button"
-                                        ze-modalselection="loadParentCompany"
-                                        data-http="parentCompanyHttp"
-                                        data-fields="parentCompanyFields"
-                                        data-title="Choisir une entreprise">...</button>
-                            </span>
-                        </div>
+                        <span   ze-modalsearch="loadParentCompany"
+                                data-http="parentCompanyHttp"
+                                data-model="form.name_parent_company"
+                                data-fields="parentCompanyFields"
+                                data-title="Choisir une entreprise"></span>
                     </div>
                 </div>
             </div>
@@ -103,17 +85,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Code NAF</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.code_naf_libelle" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.code_naf">
-
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="removeCodeNaf()"
-                                        ng-show="form.code_naf != '' && form.code_naf != undefined">x
-                                </button>
-                            <button class="btn btn-default" type="button" ng-click="loadCodeNaf()">...</button>
-                            </span>
-                        </div>
+                        <span   ze-modalsearch="loadCodeNaf"
+                                data-http="codeNafHttp"
+                                data-model="form.code_naf_libelle"
+                                data-fields="codeNafFields"
+                                data-title="Choisir un code NAF"></span>
                     </div>
                 </div>
             </div>
@@ -181,14 +157,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <div class="form-group">
                         <label>Pays</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.billing_country_name" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.billing_country_id">
 
-                            <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">...</button>
-                            </span>
-                        </div>
+                        <span   ze-modalsearch="loadCountryBilling"
+                                data-http="countriesHttp"
+                                data-model="form.billing_country_name"
+                                data-fields="countriesFields"
+                                data-title="Choisir un pays"></span>
                     </div>
                 </div>
 
@@ -219,14 +193,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <div class="form-group">
                         <label>Pays</label>
-                        <div class="input-group">
-                            <input type="text" ng-model="form.delivery_country_name" class="form-control" disabled>
-                            <input type="hidden" ng-model="form.delivery_country_id">
 
-                            <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">...</button>
-                            </span>
-                        </div>
+                        <span   ze-modalsearch="loadCountryDelivery"
+                                data-http="countriesHttp"
+                                data-model="form.delivery_country_name"
+                                data-fields="countriesFields"
+                                data-title="Choisir un pays"></span>
                     </div>
                 </div>
             </div>

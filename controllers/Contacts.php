@@ -100,6 +100,18 @@ class Contacts extends ZeCtrl
         echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'contact' => $contact));
     }
 
+    public function modal($limit = 15, $offset = 0) {
+        $this->load->model("Zeapps_contacts", "contacts");
+
+        $total = $this->contacts->count();
+
+        if(!$contacts = $this->contacts->limit($limit, $offset)->all()){
+            $contacts = [];
+        }
+
+        echo json_encode(array("data" => $contacts, "total" => $total));
+    }
+
     public function save() {
         $this->load->model("Zeapps_contacts", "contacts");
 

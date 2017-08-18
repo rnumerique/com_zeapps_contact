@@ -11,7 +11,8 @@ app.config(["$provide",
 				},
 				contact : {
 					get : get_contact,
-					all : getAll_contact
+					all : getAll_contact,
+                    modal : modal_contact
 				},
 				account_families : {
 					get : get_accountFamilies,
@@ -26,6 +27,9 @@ app.config(["$provide",
 					save : save_topologies,
 					save_all : saveAll_topologies,
 					del : delete_topologies
+				},
+				code_naf : {
+					modal : modal_codeNaf
 				}
 			};
 
@@ -53,6 +57,9 @@ app.config(["$provide",
 				id = id || "";
 				return zeHttp.get("/com_zeapps_contact/contacts/getAll/" + id);
 			}
+            function modal_contact(limit, offset){
+                return zeHttp.get("/com_zeapps_contact/contacts/modal/" + limit + "/" + offset);
+            }
 
 			function get_accountFamilies(id){
 				return zeHttp.get("/com_zeapps_contact/account_families/get/" + id);
@@ -84,6 +91,10 @@ app.config(["$provide",
 			}
 			function delete_topologies(id){
 				return zeHttp.get("/com_zeapps_contact/topologies/delete/" + id);
+			}
+
+			function modal_codeNaf(limit, offset){
+                return zeHttp.get("/com_zeapps_contact/code_naf/modal/" + limit + "/" + offset)
 			}
 		});
 	}]);

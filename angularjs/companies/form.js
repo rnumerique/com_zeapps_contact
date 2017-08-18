@@ -19,10 +19,25 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
 			{label:'Gestionnaire du compte',key:'name_user_account_manager'}
 		];
 
+		$scope.codeNafHttp = zhttp.contact.code_naf.modal;
+		$scope.codeNafFields = [
+			{label:'Code NAF',key:'code_naf'},
+			{label:'Libellé',key:'libelle'}
+		];
+
+		$scope.countriesHttp = zhttp.app.countries.modal;
+		$scope.countriesFields = [
+			{label:'Code ISO',key:'iso_code'},
+			{label:'Pays',key:'name'}
+		];
+
 		$scope.loadAccountManager = loadAccountManager;
-		$scope.removeAccountManager = removeAccountManager;
 		$scope.loadParentCompany = loadParentCompany;
-		$scope.removeParentCompany = removeParentCompany;
+		$scope.loadCodeNaf = loadCodeNaf;
+		$scope.loadCountryDelivery = loadCountryDelivery;
+		$scope.loadCountryBilling = loadCountryBilling;
+		$scope.success = success;
+		$scope.cancel = cancel;
 
 		// charge la fiche
 		if ($routeParams.id && $routeParams.id != 0) {
@@ -57,11 +72,6 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
             }
 		}
 
-		function removeAccountManager() {
-			$scope.form.id_user_account_manager = 0;
-			$scope.form.name_user_account_manager = "";
-		}
-
 		function loadParentCompany(company) {
             if (company) {
                 $scope.form.id_parent_company = company.id;
@@ -70,50 +80,39 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
                 $scope.form.id_parent_company = 0;
                 $scope.form.name_parent_company = "";
             }
-			zeapps_modal.loadModule("com_zeapps_contact", "search_company", {}, function(objReturn) {
-				//console.log(objReturn);
-			});
 		}
 
-		function removeParentCompany() {
-			$scope.form.id_parent_company = 0;
-			$scope.form.name_parent_company = "";
+		function loadCodeNaf(code_naf) {
+            if (code_naf) {
+                $scope.form.code_naf = code_naf.code_naf;
+                $scope.form.code_naf_libelle = code_naf.libelle;
+            } else {
+                $scope.form.code_naf = 0;
+                $scope.form.code_naf_libelle = "";
+            }
 		}
 
+		function loadCountryDelivery(code_naf) {
+            if (code_naf) {
+                $scope.form.delivery_country_id = code_naf.id;
+                $scope.form.delivery_country_name = code_naf.name;
+            } else {
+                $scope.form.delivery_country_id = 0;
+                $scope.form.delivery_country_name = "";
+            }
+		}
 
+		function loadCountryBilling(code_naf) {
+            if (code_naf) {
+                $scope.form.billing_country_id = code_naf.id;
+                $scope.form.billing_country_name = code_naf.name;
+            } else {
+                $scope.form.billing_country_id = 0;
+                $scope.form.billing_country_name = "";
+            }
+		}
 
-
-
-
-
-
-
-		$scope.loadCodeNaf = function () {
-			zeapps_modal.loadModule("com_zeapps_contact", "search_code_naf", {}, function(objReturn) {
-				if (objReturn) {
-					$scope.form.code_naf = objReturn.code_naf;
-					$scope.form.code_naf_libelle = objReturn.code_naf + " - " + objReturn.libelle;
-				} else {
-					$scope.form.code_naf = "";
-					$scope.form.code_naf_libelle = "";
-				}
-			});
-		};
-
-		$scope.removeCodeNaf = function() {
-			$scope.form.code_naf = "";
-			$scope.form.code_naf_libelle = "";
-		};
-
-
-
-
-
-
-
-
-
-		$scope.success = function () {
+		function success() {
 			var $data = {};
 
 			if ($routeParams.id != 0) {
@@ -174,14 +173,14 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
 					$location.path("/ng/com_zeapps_contact/companies");
 				}
 			});
-		};
+		}
 
-		$scope.cancel = function () {
+		function cancel() {
 			if ($routeParams.url_retour) {
 				$location.path($routeParams.url_retour.replace(charSepUrlSlashRegExp,"/"));
 			} else {
 				$location.path("/ng/com_zeapps_contact/companies");
 			}
-		};
+		}
 
 	}]);
