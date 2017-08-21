@@ -7,12 +7,15 @@ app.config(["$provide",
 				company : {
 					get : get_company,
 					all : getAll_company,
-					modal : modal_company
+					modal : modal_company,
+					save : save_company,
+					del : delete_company
 				},
 				contact : {
 					get : get_contact,
 					all : getAll_contact,
-                    modal : modal_contact
+                    modal : modal_contact,
+                    del : delete_contact
 				},
 				account_families : {
 					get : get_accountFamilies,
@@ -43,22 +46,32 @@ app.config(["$provide",
 			function get_company(id){
 				return zeHttp.get("/com_zeapps_contact/companies/get/" + id);
 			}
-			function getAll_company(){
-				return zeHttp.get("/com_zeapps_contact/companies/getAll");
+			function getAll_company(limit, offset, context, filters){
+				return zeHttp.post("/com_zeapps_contact/companies/getAll/" + limit + "/" + offset + "/" + context, filters);
 			}
-			function modal_company(limit, offset){
-				return zeHttp.get("/com_zeapps_contact/companies/modal/" + limit + "/" + offset);
+			function modal_company(limit, offset, filters){
+				return zeHttp.post("/com_zeapps_contact/companies/modal/" + limit + "/" + offset, filters);
+			}
+			function save_company(data){
+				return zeHttp.post("/com_zeapps_contact/companies/save", data);
+			}
+			function delete_company(id){
+				return zeHttp.delete("/com_zeapps_contact/companies/delete/" + id);
 			}
 
 			function get_contact(id){
 				return zeHttp.get("/com_zeapps_contact/contacts/get/" + id);
 			}
-			function getAll_contact(id){
-				id = id || "";
-				return zeHttp.get("/com_zeapps_contact/contacts/getAll/" + id);
+			function getAll_contact(id, limit, offset, context, filters){
+				id = id || 0;
+				return zeHttp.post("/com_zeapps_contact/contacts/getAll/" + id + "/" + limit + "/" + offset + "/" + context, filters);
 			}
-            function modal_contact(limit, offset){
-                return zeHttp.get("/com_zeapps_contact/contacts/modal/" + limit + "/" + offset);
+            function modal_contact(limit, offset, filters, id_company){
+				id_company = id_company || 0;
+                return zeHttp.post("/com_zeapps_contact/contacts/modal/" + id_company + "/" + limit + "/" + offset, filters);
+            }
+            function delete_contact(id){
+                return zeHttp.delete("/com_zeapps_contact/contacts/delete/" + id);
             }
 
 			function get_accountFamilies(id){
@@ -93,8 +106,8 @@ app.config(["$provide",
 				return zeHttp.get("/com_zeapps_contact/topologies/delete/" + id);
 			}
 
-			function modal_codeNaf(limit, offset){
-                return zeHttp.get("/com_zeapps_contact/code_naf/modal/" + limit + "/" + offset)
+			function modal_codeNaf(limit, offset, filters){
+                return zeHttp.post("/com_zeapps_contact/code_naf/modal/" + limit + "/" + offset, filters)
 			}
 		});
 	}]);

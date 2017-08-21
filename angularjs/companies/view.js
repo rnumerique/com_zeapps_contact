@@ -1,5 +1,5 @@
-app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "zeapps_modal", "zeHooks",
-	function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal, zeHooks) {
+app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "zeapps_modal", "zeHooks",
+	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, zeapps_modal, zeHooks) {
 
 		$scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_company");
 
@@ -11,23 +11,35 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			);
 		});
 
+        $scope.templateEdit = "/com_zeapps_contact/companies/form_modal";
 		$scope.hooks = zeHooks.get("comZeappsContact_EntrepriseHook");
-		$scope.form = [];
+		$scope.company = [];
+
+        $scope.currentTab = $rootScope.comZeappsContactLastShowTabEntreprise || "summary";
+
+		$scope.setTab = setTab;
+		$scope.isTabActive = isTabActive;
+
+		$scope.first_company = first_company;
+		$scope.previous_company = previous_company;
+		$scope.next_company = next_company;
+		$scope.last_company = last_company;
 
 		$scope.edit = edit;
-		$scope.cancel = cancel;
+		$scope.back = back;
 
 		// charge la fiche
 		if ($routeParams.id && $routeParams.id != 0) {
-			$http.get("/com_zeapps_contact/companies/get/" + $routeParams.id).then(function (response) {
+			zhttp.contact.company.get($routeParams.id).then(function (response) {
 				if (response.status == 200) {
-					$scope.form = response.data.company;
+					$scope.company = response.data.company;
+					$scope.contacts = response.data.contacts;
 				}
 			});
 		}
 
 		if($rootScope.companies_search_list == undefined) {
-			$http.post("/com_zeapps_contact/companies/getAll").then(function (response) {
+            zhttp.contact.company.all(0, 0, "").then(function (response) {
 				if (response.status == 200) {
 					$scope.companies = response.data.companies;
 
@@ -42,29 +54,21 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			initNavigation();
 		}
 
-		/******* gestion de la tabs *********/
-		$scope.currentTab = "summary";
-		if ($rootScope.comZeappsContactLastShowTabEntreprise) {
-			$scope.currentTab = $rootScope.comZeappsContactLastShowTabEntreprise ;
-		}
-
-		$scope.setTab = function(tab){
+		function setTab(tab){
 			$rootScope.comZeappsContactLastShowTabEntreprise = tab;
 			$scope.currentTab = tab;
-		};
-
-		$scope.isTabActive = function(tab){
-			return $scope.currentTab === tab;
-		};
-		/******* FIN : gestion de la tabs *********/
-
-		function edit() {
-			var urlRetour = "/ng/com_zeapps_contact/companies/" + $routeParams.id ;
-
-			$location.path("/ng/com_zeapps_contact/companies/" + $routeParams.id + "/edit/retour/" + encodeURI(urlRetour.replace(/\//g,charSepUrlSlash)));
 		}
 
-		function cancel() {
+		function isTabActive(tab){
+			return $scope.currentTab === tab;
+		}
+
+		function edit() {
+            var formatted_data = angular.toJson($scope.company);
+            zhttp.contact.company.save(formatted_data);
+		}
+
+		function back() {
 			$location.path("/ng/com_zeapps_contact/companies");
 		}
 
@@ -103,30 +107,28 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			if ($rootScope.companies_search_list[$rootScope.companies_search_list.length - 1].id != $routeParams.id) {
 				$scope.company_last = $rootScope.companies_search_list[$rootScope.companies_search_list.length - 1].id;
 			}
-
-
-			$scope.first_company = function () {
-				if ($scope.company_first != 0) {
-					$location.path("/ng/com_zeapps_contact/companies/" + $scope.company_first);
-				}
-			};
-			$scope.previous_company = function () {
-				if ($scope.company_previous != 0) {
-					$location.path("/ng/com_zeapps_contact/companies/" + $scope.company_previous);
-				}
-			};
-			$scope.next_company = function () {
-				if ($scope.company_next) {
-					$location.path("/ng/com_zeapps_contact/companies/" + $scope.company_next);
-				}
-			};
-			$scope.last_company = function () {
-				if ($scope.company_last) {
-					$location.path("/ng/com_zeapps_contact/companies/" + $scope.company_last);
-				}
-			};
-
 		}
+
+        function first_company() {
+            if ($scope.company_first !== 0) {
+                $location.path("/ng/com_zeapps_contact/companies/" + $scope.company_first);
+            }
+        }
+        function previous_company() {
+            if ($scope.company_previous !== 0) {
+                $location.path("/ng/com_zeapps_contact/companies/" + $scope.company_previous);
+            }
+        }
+        function next_company() {
+            if ($scope.company_next) {
+                $location.path("/ng/com_zeapps_contact/companies/" + $scope.company_next);
+            }
+        }
+        function last_company() {
+            if ($scope.company_last) {
+                $location.path("/ng/com_zeapps_contact/companies/" + $scope.company_last);
+            }
+        }
 
 
 

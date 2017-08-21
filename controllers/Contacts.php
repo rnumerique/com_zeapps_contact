@@ -5,30 +5,27 @@ class Contacts extends ZeCtrl
 {
     public function search()
     {
-        $data = array() ;
+        $this->load->view('contacts/search');
+    }
 
-        $this->load->view('contacts/search', $data);
+    public function list_partial()
+    {
+        $this->load->view('contacts/list_partial');
     }
 
     public function view()
     {
-        $data = array() ;
-
-        $this->load->view('contacts/view', $data);
+        $this->load->view('contacts/view');
     }
 
-    public function form()
+    public function form_modal()
     {
-        $data = array() ;
-
-        $this->load->view('contacts/form', $data);
+        $this->load->view('contacts/form_modal');
     }
 
     public function modal_contact()
     {
-        $data = array() ;
-
-        $this->load->view('contacts/modalContact', $data);
+        $this->load->view('contacts/modalContact');
     }
 
 
@@ -55,29 +52,47 @@ class Contacts extends ZeCtrl
     }
 
 
-    public function getAll($id_company = null) {
+    public function getAll($id_company = "0", $limit = 15, $offset = 0, $context = false) {
         $this->load->model("Zeapps_contacts", "contacts");
-        $this->load->model('Zeapps_account_families', 'account_families');
-        $this->load->model('Zeapps_topologies', 'topologies');
 
-        $where = [];
+        $filters = array() ;
 
-        if($id_company)
-            $where['id_company'] = $id_company;
-
-        if(!$account_families = $this->account_families->all()){
-            $account_families = [];
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
+            // POST is actually in json format, do an internal translation
+            $filters = json_decode(file_get_contents('php://input'), true);
         }
 
-        if(!$topologies = $this->topologies->all()){
+        if($id_company !== "0")
+            $filters['id_company'] = $id_company;
+
+        if(!$contacts = $this->contacts->limit($limit, $offset)->all($filters)){
+            $contacts = [];
+        }
+        $total = $this->contacts->count($filters);
+
+        if($context){
+            $this->load->model('Zeapps_account_families', 'account_families');
+            $this->load->model('Zeapps_topologies', 'topologies');
+
+            if(!$account_families = $this->account_families->all()){
+                $account_families = [];
+            }
+
+            if(!$topologies = $this->topologies->all()){
+                $topologies = [];
+            }
+        }
+        else{
+            $account_families = [];
             $topologies = [];
         }
 
-        if(!$contacts = $this->contacts->all($where)){
-            $contacts = [];
-        }
-
-        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'contacts' => $contacts));
+        echo json_encode(array(
+            'account_families' => $account_families,
+            'topologies' => $topologies,
+            'contacts' => $contacts,
+            "total" => $total
+        ));
     }
 
     public function get($id) {
@@ -100,12 +115,22 @@ class Contacts extends ZeCtrl
         echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'contact' => $contact));
     }
 
-    public function modal($limit = 15, $offset = 0) {
+    public function modal($id_company = '0', $limit = 15, $offset = 0) {
         $this->load->model("Zeapps_contacts", "contacts");
 
-        $total = $this->contacts->count();
+        $filters = array() ;
 
-        if(!$contacts = $this->contacts->limit($limit, $offset)->all()){
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
+            // POST is actually in json format, do an internal translation
+            $filters = json_decode(file_get_contents('php://input'), true);
+        }
+
+        if($id_company !== "0")
+            $filters['id_company'] = $id_company;
+
+        $total = $this->contacts->count($filters);
+
+        if(!$contacts = $this->contacts->limit($limit, $offset)->all($filters)){
             $contacts = [];
         }
 

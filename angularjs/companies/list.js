@@ -1,72 +1,81 @@
-app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "$uibModal", "zeapps_modal",
-	function ($scope, $route, $routeParams, $location, $rootScope, $http, $uibModal, zeapps_modal) {
+app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "$uibModal", "zeapps_modal",
+	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, $uibModal, zeapps_modal) {
 
 		$scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_company");
 
-		$scope.filter = {
-			model: {},
-			options: {
-				main: [
-					{
-						format: 'input',
-						field: 'nom',
-						type: 'text',
-						label: 'Nom'
-					},
-					{
-						format: 'select',
-						field: 'id_account_family',
-						type: 'text',
-						label: 'Famille',
-						options: []
-					},
-					{
-						format: 'select',
-						field: 'id_topology',
-						type: 'text',
-						label: 'Topologie',
-						options: []
-					}
-				],
-				secondaries: [
-					{
-						format: 'input',
-						field: 'nom',
-						type: 'text',
-						label: 'Ville',
-						size: 6
-					},
-					{
-						format: 'input',
-						field: 'nom',
-						type: 'text',
-						label: 'Code Postal',
-						size: 6
-					}
-				]
-			}
-		};
+		$scope.filters = {
+            main: [
+                {
+                    format: 'input',
+                    field: 'company_name LIKE',
+                    type: 'text',
+                    label: 'Nom'
+                },
+                {
+                    format: 'select',
+                    field: 'id_account_family',
+                    type: 'text',
+                    label: 'Famille',
+                    options: []
+                },
+                {
+                    format: 'select',
+                    field: 'id_topology',
+                    type: 'text',
+                    label: 'Topologie',
+                    options: []
+                }
+            ],
+            secondaries: [
+                {
+                    format: 'input',
+                    field: 'billing_city LIKE',
+                    type: 'text',
+                    label: 'Ville',
+                    size: 6
+                },
+                {
+                    format: 'input',
+                    field: 'billing_zipcode LIKE',
+                    type: 'text',
+                    label: 'Code Postal',
+                    size: 6
+                }
+            ]
+        };
+		$scope.filter_model = {};
 		$scope.companies = [];
 		$scope.page = 1;
-		$scope.pageSize = 30;
+		$scope.pageSize = 15;
+		$scope.total = 0;
+		$scope.templateForm = '/com_zeapps_contact/companies/form_modal';
 
+		$scope.loadList = loadList;
 		$scope.loadCodeNaf = loadCodeNaf;
 		$scope.removeCodeNaf = removeCodeNaf;
 		$scope.loadCountryLang = loadCountryLang;
 		$scope.removeCountryLang = removeCountryLang;
+		$scope.add = add;
+		$scope.edit = edit;
 		$scope.delete = del;
 
-		loadList() ;
+		loadList(true) ;
 
-		function loadList() {
-			$http.get("/com_zeapps_contact/companies/getAll").then(function (response) {
+		function loadList(context) {
+			context = context || "";
+			var offset = ($scope.page - 1) * $scope.pageSize;
+			var formatted_filters = angular.toJson($scope.filter_model);
+
+			zhttp.contact.company.all($scope.pageSize, offset, context, formatted_filters).then(function (response) {
 				if (response.status == 200) {
-					$scope.companies = response.data.companies ;
-					$scope.filter.options.main[1].options = response.data.account_families;
-					$scope.filter.options.main[2].options = response.data.topologies;
-
+					if(context) {
+                        $scope.filters.main[1].options = response.data.account_families;
+                        $scope.filters.main[2].options = response.data.topologies;
+                    }
+                    $scope.companies = response.data.companies ;
 					// stock la liste des compagnies pour la navigation par fleche
 					$rootScope.companies_search_list = response.data.companies ;
+					$scope.total = response.data.total;
 				}
 			});
 		}
@@ -100,47 +109,26 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
 
 		}
 
+        function add(company) {
+			var formatted_data = angular.toJson(company);
+            zhttp.contact.company.save(formatted_data).then(function (response) {
+                if (response.data && response.data != "false") {
+                    loadList();
+                }
+            });
+        }
 
+        function edit(company) {
+			var formatted_data = angular.toJson(company);
+            zhttp.contact.company.save(formatted_data);
+        }
 
-		function del(argIdUser) {
-			var modalInstance = $uibModal.open({
-				animation: true,
-				templateUrl: "/assets/angular/popupModalDeBase.html",
-				controller: "ZeAppsPopupModalDeBaseCtrl",
-				size: "lg",
-				resolve: {
-					titre: function () {
-						return "Attention";
-					},
-					msg: function () {
-						return "Souhaitez-vous supprimer définitivement cette entreprise ?";
-					},
-					action_danger: function () {
-						return "Annuler";
-					},
-					action_primary: function () {
-						return false;
-					},
-					action_success: function () {
-						return "Je confirme la suppression";
-					}
-				}
-			});
-
-			modalInstance.result.then(function (selectedItem) {
-				if (selectedItem.action == "danger") {
-
-				} else if (selectedItem.action == "success") {
-					$http.get("/com_zeapps_contact/companies/delete/" + argIdUser).then(function (response) {
-						if (response.status == 200) {
-							loadList() ;
-						}
-					});
-				}
-
-			}, function () {
-			});
-
+		function del(company) {
+            zhttp.contact.company.del(company.id).then(function (response) {
+                if (response.status == 200) {
+                    loadList();
+                }
+            });
 		}
 
 

@@ -25,8 +25,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <div class="col-md-3">
                     <div class="pull-right">
-                        <button type="button" class="btn btn-primary btn-xs" ng-click="cancel()"><span class="fa fa-fw fa-arrow-left"></span></button>
-                        <button type="button" class="btn btn-info btn-xs" ng-click="edit()"><span class="fa fa-fw fa-pencil"></span></button>
+                        <ze-btn fa="arrow-left" color="primary" hint="Retour" direction="left" ng-click="back()"></ze-btn>
+                        <ze-btn fa="pencil" color="info" hint="Editer" direction="left"
+                                ze-modalform="edit"
+                                data-edit="form"
+                                data-template="templateEdit"
+                                data-title="Modifier le contact"></ze-btn>
 
 
                         <div class="btn-group btn-group-xs" role="group" ng-if="nb_companies > 0">

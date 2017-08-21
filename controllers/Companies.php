@@ -5,32 +5,27 @@ class Companies extends ZeCtrl
 {
     public function search()
     {
-        $data = array() ;
-
-        $this->load->view('companies/search', $data);
+        $this->load->view('companies/search');
     }
 
     public function view()
     {
-        $data = array() ;
-
-        $this->load->view('companies/view', $data);
+        $this->load->view('companies/view');
     }
 
-
-
-        public function form()
+    public function form_modal()
     {
-        $data = array() ;
+        $this->load->view('companies/form_modal');
+    }
 
-        $this->load->view('companies/form', $data);
+    public function summary_partial()
+    {
+        $this->load->view('companies/summary_partial');
     }
 
     public function modal_company()
     {
-        $data = array() ;
-
-        $this->load->view('companies/modalCompany', $data);
+        $this->load->view('companies/modalCompany');
     }
 
 
@@ -55,32 +50,59 @@ class Companies extends ZeCtrl
         echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies));
     }
 
-    public function getAll() {
+    public function getAll($limit = 15, $offset = 0, $context = false) {
         $this->load->model("Zeapps_companies", "companies");
-        $this->load->model('Zeapps_account_families', 'account_families');
-        $this->load->model('Zeapps_topologies', 'topologies');
 
-        if(!$account_families = $this->account_families->all()){
-            $account_families = [];
+        $filters = array() ;
+
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
+            // POST is actually in json format, do an internal translation
+            $filters = json_decode(file_get_contents('php://input'), true);
         }
 
-        if(!$topologies = $this->topologies->all()){
+        if(!$companies = $this->companies->limit($limit, $offset)->all($filters)){
+            $companies = [];
+        }
+        $total = $this->companies->count($filters);
+
+        if($context) {
+            $this->load->model('Zeapps_account_families', 'account_families');
+            $this->load->model('Zeapps_topologies', 'topologies');
+
+            if (!$account_families = $this->account_families->all()) {
+                $account_families = [];
+            }
+
+            if (!$topologies = $this->topologies->all()) {
+                $topologies = [];
+            }
+        }
+        else{
+            $account_families = [];
             $topologies = [];
         }
 
-        if(!$companies = $this->companies->all()){
-            $companies = [];
-        }
-
-        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'companies' => $companies));
+        echo json_encode(array(
+            'account_families' => $account_families,
+            'topologies' => $topologies,
+            'companies' => $companies,
+            'total' => $total
+        ));
     }
 
     public function modal($limit = 15, $offset = 0) {
         $this->load->model("Zeapps_companies", "companies");
 
-        $total = $this->companies->count();
+        $filters = array() ;
 
-        if(!$companies = $this->companies->limit($limit, $offset)->all()){
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
+            // POST is actually in json format, do an internal translation
+            $filters = json_decode(file_get_contents('php://input'), true);
+        }
+
+        $total = $this->companies->count($filters);
+
+        if(!$companies = $this->companies->limit($limit, $offset)->all($filters)){
             $companies = [];
         }
 
@@ -89,6 +111,7 @@ class Companies extends ZeCtrl
 
     public function get($id) {
         $this->load->model("Zeapps_companies", "companies");
+        $this->load->model("Zeapps_contacts", "contacts");
         $this->load->model('Zeapps_account_families', 'account_families');
         $this->load->model('Zeapps_topologies', 'topologies');
 
@@ -100,11 +123,20 @@ class Companies extends ZeCtrl
             $topologies = [];
         }
 
+        if(!$contacts = $this->contacts->all(array('id_company' => $id))){
+            $contacts = [];
+        }
+
         if(!$company = $this->companies->get($id)){
             $company = [];
         }
 
-        echo json_encode(array('account_families' => $account_families, 'topologies' => $topologies, 'company' => $company));
+        echo json_encode(array(
+            'account_families' => $account_families,
+            'topologies' => $topologies,
+            'contacts' => $contacts,
+            'company' => $company
+        ));
     }
 
     public function save() {
@@ -120,11 +152,12 @@ class Companies extends ZeCtrl
 
         if (isset($data["id"]) && is_numeric($data["id"])) {
             $this->companies->update($data, $data["id"]);
+            $id = $data['id'];
         } else {
-            $this->companies->insert($data);
+            $id = $this->companies->insert($data);
         }
 
-        echo json_encode("OK");
+        echo $id;
     }
 
 

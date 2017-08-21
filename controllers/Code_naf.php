@@ -41,9 +41,16 @@ class Code_naf extends ZeCtrl
     {
         $this->load->model("Zeapps_code_naf", "code_naf");
 
-        $total = $this->code_naf->count();
+        $filters = array() ;
 
-        if(!$code_naf = $this->code_naf->limit($limit, $offset)->all()){
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
+            // POST is actually in json format, do an internal translation
+            $filters = json_decode(file_get_contents('php://input'), true);
+        }
+
+        $total = $this->code_naf->count($filters);
+
+        if(!$code_naf = $this->code_naf->limit($limit, $offset)->all($filters)){
             $code_naf = [];
         }
 

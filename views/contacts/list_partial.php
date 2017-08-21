@@ -1,19 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<div id="breadcrumb">
-    Entreprises
-</div>
-<div id="content">
-
+<div ng-controller="ComZeappsContactContactsListPartialCtrl">
     <div class="row">
         <div class="col-md-12">
             <ze-filters class="pull-right" data-model="filter_model" data-filters="filters" data-update="loadList"></ze-filters>
 
-            <ze-btn fa="plus" color="success" hint="Entreprise" always-on="true"
+            <ze-btn fa="plus" color="success" hint="Contact" always-on="true"
                     ze-modalform="add"
                     data-template="templateForm"
-                    data-title="Ajouter une nouvelle entreprise"></ze-btn>
+                    data-title="Ajouter un nouveau contact"></ze-btn>
         </div>
     </div>
 
@@ -25,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped table-condensed table-responsive" ng-show="companies.length">
+            <table class="table table-striped table-condensed table-responsive" ng-show="contacts.length">
                 <thead>
                 <tr>
                     <th>Nom</th>
@@ -36,18 +32,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="company in companies">
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.company_name}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.phone}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.billing_city}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.name_user_account_manager}}</a></td>
+                <tr ng-repeat="contact in contacts">
+                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.first_name}} {{contact.last_name}}</a></td>
+                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.phone}}</a></td>
+                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.city}}</a></td>
+                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.name_user_account_manager}}</a></td>
                     <td class="text-right">
                         <ze-btn fa="pencil" color="info" hint="Editer" direction="left"
                                 ze-modalform="edit"
-                                data-edit="company"
+                                data-edit="contact"
                                 data-template="templateForm"
-                                data-title="Modifier l'entreprise"></ze-btn>
-                        <ze-btn fa="trash" color="danger" hint="Supprimer" direction="left" ng-click="delete(company)" ze-confirmation></ze-btn>
+                                data-title="Modifier le contact"></ze-btn>
+                        <ze-btn fa="trash" color="danger" hint="Supprimer" direction="left" ng-click="delete(contact)" ze-confirmation></ze-btn>
                     </td>
                 </tr>
                 </tbody>
@@ -60,5 +56,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             class="pagination-sm" boundary-links="true" max-size="15"
             previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
     </div>
+
 
 </div>
