@@ -74,6 +74,10 @@ app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "
                     }
 
                     $scope.contacts = response.data.contacts;
+                    angular.forEach($scope.contacts, function(contact){
+                        contact.date_of_birth = new Date(contact.date_of_birth);
+                    });
+
                     $scope.total = response.data.total;
 				}
 			});
