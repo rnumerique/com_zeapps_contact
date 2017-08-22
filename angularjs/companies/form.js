@@ -1,5 +1,5 @@
-app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "zeapps_modal", "zeHttp",
-	function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal, zhttp) {
+app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeapps_modal", "zeHttp",
+	function ($scope, $route, $routeParams, $location, $rootScope, zeapps_modal, zhttp) {
 
 		$scope.accountManagerHttp = zhttp.app.user;
 		$scope.accountManagerFields = [
@@ -50,7 +50,7 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
 		$scope.loadStateBilling = loadStateBilling;
 		$scope.loadAccountingNumber = loadAccountingNumber;
 
-        $http.get("/com_zeapps_contact/companies/context/").then(function (response) {
+        zhttp.contact.company.context().then(function (response) {
             if (response.status == 200) {
                 $scope.account_families = response.data.account_families;
                 $scope.topologies = response.data.topologies;
@@ -59,7 +59,6 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
                 $scope.$parent.form.name_user_account_manager =  $rootScope.user.firstname + " " +  $rootScope.user.lastname;
             }
         });
-
 
 		function loadAccountManager(user) {
             if (user) {

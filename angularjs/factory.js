@@ -5,6 +5,7 @@ app.config(["$provide",
 
 			zeHttp.contact = {
 				company : {
+					context : context_company,
 					get : get_company,
 					all : getAll_company,
 					modal : modal_company,
@@ -12,6 +13,7 @@ app.config(["$provide",
 					del : delete_company
 				},
 				contact : {
+                    context : context_contact,
 					get : get_contact,
 					all : getAll_contact,
                     modal : modal_contact,
@@ -43,6 +45,9 @@ app.config(["$provide",
 
 
 
+			function context_company(){
+				return zeHttp.get("/com_zeapps_contact/companies/context/");
+			}
 			function get_company(id){
 				return zeHttp.get("/com_zeapps_contact/companies/get/" + id);
 			}
@@ -59,6 +64,9 @@ app.config(["$provide",
 				return zeHttp.delete("/com_zeapps_contact/companies/delete/" + id);
 			}
 
+			function context_contact(){
+				return zeHttp.get("/com_zeapps_contact/contacts/context/");
+			}
 			function get_contact(id){
 				return zeHttp.get("/com_zeapps_contact/contacts/get/" + id);
 			}

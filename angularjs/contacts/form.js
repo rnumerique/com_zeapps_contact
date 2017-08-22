@@ -1,5 +1,5 @@
-app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "$http", "zeapps_modal", "zeHttp",
-	function ($scope, $route, $routeParams, $location, $rootScope, $http, zeapps_modal, zhttp) {
+app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeapps_modal", "zeHttp",
+	function ($scope, $route, $routeParams, $location, $rootScope, zeapps_modal, zhttp) {
 
         $scope.accountManagerHttp = zhttp.app.user;
         $scope.accountManagerFields = [
@@ -41,7 +41,7 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
         $scope.loadState = loadState;
         $scope.loadAccountingNumber = loadAccountingNumber;
 
-        $http.get("/com_zeapps_contact/contacts/context/").then(function (response) {
+        zhttp.contact.contact.context().then(function (response) {
             if (response.status == 200) {
                 $scope.account_families = response.data.account_families;
                 $scope.topologies = response.data.topologies;
