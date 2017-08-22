@@ -21,9 +21,25 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
             {label:'Pays',key:'name'}
         ];
 
+        $scope.statesHttp = zhttp.app.states;
+        $scope.statesFields = [
+            {label:'Code ISO',key:'iso_code'},
+            {label:'Etat',key:'name'}
+        ];
+
+        $scope.accountingNumberHttp = zhttp.crm.accounting_number;
+        $scope.accountingNumberTplNew = '/com_zeapps_crm/accounting_numbers/form_modal/';
+        $scope.accountingNumberFields = [
+            {label:'Libelle',key:'label'},
+            {label:'Numero',key:'number'},
+            {label:'Type',key:'type_label'}
+        ];
+
 		$scope.loadAccountManager = loadAccountManager;
 		$scope.loadCompany = loadCompany;
         $scope.loadCountry = loadCountry;
+        $scope.loadState = loadState;
+        $scope.loadAccountingNumber = loadAccountingNumber;
 
         $http.get("/com_zeapps_contact/contacts/context/").then(function (response) {
             if (response.status == 200) {
@@ -55,16 +71,29 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
             }
         }
 
-        function loadCountry(code_naf) {
-            if (code_naf) {
-                $scope.$parent.form.country_id = code_naf.id;
-                $scope.$parent.form.country_name = code_naf.name;
+        function loadCountry(country) {
+            if (country) {
+                $scope.$parent.form.country_id = country.id;
+                $scope.$parent.form.country_name = country.name;
             } else {
                 $scope.$parent.form.country_id = 0;
                 $scope.$parent.form.country_name = "";
             }
         }
 
+        function loadState(state) {
+            if (state) {
+                $scope.$parent.form.state = state.name;
+            } else {
+                $scope.$parent.form.state = "";
+            }
+        }
 
-
+        function loadAccountingNumber(accounting_number) {
+            if (accounting_number) {
+                $scope.$parent.form.accounting_number = accounting_number.number;
+            } else {
+                $scope.$parent.form.accounting_number = "";
+            }
+        }
 	}]);

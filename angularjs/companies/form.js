@@ -27,11 +27,28 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
 			{label:'Pays',key:'name'}
 		];
 
+        $scope.statesHttp = zhttp.app.states;
+        $scope.statesFields = [
+            {label:'Code ISO',key:'iso_code'},
+            {label:'Etat',key:'name'}
+        ];
+
+        $scope.accountingNumberHttp = zhttp.crm.accounting_number;
+        $scope.accountingNumberTplNew = '/com_zeapps_crm/accounting_numbers/form_modal/';
+        $scope.accountingNumberFields = [
+            {label:'Libelle',key:'label'},
+            {label:'Numero',key:'number'},
+            {label:'Type',key:'type_label'}
+        ];
+
 		$scope.loadAccountManager = loadAccountManager;
 		$scope.loadParentCompany = loadParentCompany;
 		$scope.loadCodeNaf = loadCodeNaf;
 		$scope.loadCountryDelivery = loadCountryDelivery;
 		$scope.loadCountryBilling = loadCountryBilling;
+		$scope.loadStateDelivery = loadStateDelivery;
+		$scope.loadStateBilling = loadStateBilling;
+		$scope.loadAccountingNumber = loadAccountingNumber;
 
         $http.get("/com_zeapps_contact/companies/context/").then(function (response) {
             if (response.status == 200) {
@@ -74,23 +91,47 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
             }
 		}
 
-		function loadCountryDelivery(code_naf) {
-            if (code_naf) {
-                $scope.$parent.form.delivery_country_id = code_naf.id;
-                $scope.$parent.form.delivery_country_name = code_naf.name;
+		function loadCountryDelivery(country) {
+            if (country) {
+                $scope.$parent.form.delivery_country_id = country.id;
+                $scope.$parent.form.delivery_country_name = country.name;
             } else {
                 $scope.$parent.form.delivery_country_id = 0;
                 $scope.$parent.form.delivery_country_name = "";
             }
 		}
 
-		function loadCountryBilling(code_naf) {
-            if (code_naf) {
-                $scope.$parent.form.billing_country_id = code_naf.id;
-                $scope.$parent.form.billing_country_name = code_naf.name;
+		function loadCountryBilling(country) {
+            if (country) {
+                $scope.$parent.form.billing_country_id = country.id;
+                $scope.$parent.form.billing_country_name = country.name;
             } else {
                 $scope.$parent.form.billing_country_id = 0;
                 $scope.$parent.form.billing_country_name = "";
+            }
+		}
+
+		function loadStateDelivery(state) {
+            if (state) {
+                $scope.$parent.form.delivery_state = state.name;
+            } else {
+                $scope.$parent.form.delivery_state = "";
+            }
+		}
+
+		function loadStateBilling(state) {
+            if (state) {
+                $scope.$parent.form.billing_state = state.name;
+            } else {
+                $scope.$parent.form.billing_state = "";
+            }
+		}
+
+		function loadAccountingNumber(accounting_number) {
+            if (accounting_number) {
+                $scope.$parent.form.accounting_number = accounting_number.number;
+            } else {
+                $scope.$parent.form.accounting_number = "";
             }
 		}
 	}]);

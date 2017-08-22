@@ -26,13 +26,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-md-3">
             <div class="form-group">
                 <label>Compte comptable</label>
-                <select ng-model="form.accounting_number" class="form-control">
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                    <option>xxxxxxxxxxxx</option>
-                </select>
+                <span   ze-modalsearch="loadAccountingNumber"
+                        data-http="accountingNumberHttp"
+                        data-model="form.accounting_number"
+                        data-fields="accountingNumberFields"
+                        data-template-new="accountingNumberTplNew"
+                        data-title="Choisir un compte comptable"></span>
             </div>
         </div>
         <div class="col-md-3">
@@ -198,7 +197,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <div class="form-group">
                 <label>État</label>
-                <input type="text" ng-model="form.state" class="form-control">
+
+                <span   ze-modalsearch="loadState"
+                        data-http="statesHttp"
+                        data-model="form.state"
+                        data-filters="{id_country: form.country_id}"
+                        data-fields="statesFields"
+                        data-title="Choisir un état"></span>
             </div>
         </div>
 
