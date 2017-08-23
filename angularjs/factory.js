@@ -17,6 +17,7 @@ app.config(["$provide",
 					get : get_contact,
 					all : getAll_contact,
                     modal : modal_contact,
+                    save : save_contact,
                     del : delete_contact
 				},
 				account_families : {
@@ -77,6 +78,9 @@ app.config(["$provide",
             function modal_contact(limit, offset, filters, id_company){
 				id_company = id_company || 0;
                 return zeHttp.post("/com_zeapps_contact/contacts/modal/" + id_company + "/" + limit + "/" + offset, filters);
+            }
+            function save_contact(data){
+                return zeHttp.post("/com_zeapps_contact/contacts/save/", data);
             }
             function delete_contact(id){
                 return zeHttp.delete("/com_zeapps_contact/contacts/delete/" + id);
