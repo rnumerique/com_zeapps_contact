@@ -1,5 +1,7 @@
-app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeapps_modal", "zeHttp",
+app.controller("ComZeappsContactCompaniesFormCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeapps_modal", "zeHttp",
 	function ($scope, $route, $routeParams, $location, $rootScope, zeapps_modal, zhttp) {
+
+        var currentTab = 'general';
 
 		$scope.accountManagerHttp = zhttp.app.user;
 		$scope.accountManagerFields = [
@@ -41,6 +43,10 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
             {label:'Type',key:'type_label'}
         ];
 
+        $scope.isTabActive = isTabActive;
+        $scope.setTab = setTab;
+        $scope.displayTab = displayTab;
+
 		$scope.loadAccountManager = loadAccountManager;
 		$scope.loadParentCompany = loadParentCompany;
 		$scope.loadCodeNaf = loadCodeNaf;
@@ -59,6 +65,18 @@ app.controller("ComZeappsContactCompaniesFormListCtrl", ["$scope", "$route", "$r
                 $scope.$parent.form.name_user_account_manager =  $rootScope.user.firstname + " " +  $rootScope.user.lastname;
             }
         });
+
+        function isTabActive(tab){
+            return currentTab === tab ? 'active' : '';
+        }
+
+        function setTab(tab){
+            return currentTab = tab;
+        }
+
+        function displayTab(tab){
+            return currentTab === tab;
+        }
 
 		function loadAccountManager(user) {
             if (user) {

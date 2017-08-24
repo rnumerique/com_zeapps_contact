@@ -6,13 +6,13 @@ app.controller("ComZeappsContactContactsViewCtrl", ["$scope", "$route", "$routeP
 		$scope.$on("comZeappsContact_triggerContactHook", function(){
 			$rootScope.$broadcast("comZeappsContact_dataContactHook",
 				{
-					id_contact: $routeParams.id,
-					id_company: $scope.form.id_company
+					id_contact: $routeParams.id_contact,
+					id_company: $scope.contact.id_company
 				}
 			);
 		});
 
-        $scope.form = [];
+        $scope.contact = [];
 
         $scope.templateEdit = "/com_zeapps_contact/contacts/form_modal";
 		$scope.hooks = zeHooks.get("comZeappsContact_ContactHook");
@@ -23,11 +23,11 @@ app.controller("ComZeappsContactContactsViewCtrl", ["$scope", "$route", "$routeP
         $scope.edit = edit;
         $scope.back = back;
 
-        if ($routeParams.id && $routeParams.id != 0) {
-            zhttp.contact.contact.get($routeParams.id).then(function (response) {
+        if ($routeParams.id_contact && $routeParams.id_contact != 0) {
+            zhttp.contact.contact.get($routeParams.id_contact).then(function (response) {
                 if (response.status == 200) {
-                    $scope.form = response.data.contact;
-                    $scope.form.date_of_birth = new Date($scope.form.date_of_birth);
+                    $scope.contact = response.data.contact;
+                    $scope.contact.date_of_birth = new Date($scope.contact.date_of_birth);
                 }
             });
         }
@@ -42,7 +42,7 @@ app.controller("ComZeappsContactContactsViewCtrl", ["$scope", "$route", "$routeP
 		}
 
 		function edit() {
-            var formatted_data = angular.toJson($scope.form);
+            var formatted_data = angular.toJson($scope.contact);
             zhttp.contact.contact.save(formatted_data);
 		}
 

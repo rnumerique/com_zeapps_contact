@@ -1,5 +1,7 @@
-app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeapps_modal", "zeHttp",
+app.controller("ComZeappsContactContactsFormCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeapps_modal", "zeHttp",
 	function ($scope, $route, $routeParams, $location, $rootScope, zeapps_modal, zhttp) {
+
+        var currentTab = 'general';
 
         $scope.accountManagerHttp = zhttp.app.user;
         $scope.accountManagerFields = [
@@ -35,6 +37,10 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
             {label:'Type',key:'type_label'}
         ];
 
+        $scope.isTabActive = isTabActive;
+        $scope.setTab = setTab;
+        $scope.displayTab = displayTab;
+
 		$scope.loadAccountManager = loadAccountManager;
 		$scope.loadCompany = loadCompany;
         $scope.loadCountry = loadCountry;
@@ -50,6 +56,25 @@ app.controller("ComZeappsContactContactsFormListCtrl", ["$scope", "$route", "$ro
                 $scope.$parent.form.name_user_account_manager =  $rootScope.user.firstname + " " +  $rootScope.user.lastname;
             }
         });
+        if($routeParams.id_company !== undefined && $routeParams.id_company !== 0){
+            zhttp.contact.company.get($routeParams.id_company).then(function(response){
+                if(response.data && response.data != "false"){
+                    loadCompany(response.data.company);
+                }
+            });
+        }
+
+        function isTabActive(tab){
+            return currentTab === tab ? 'active' : '';
+        }
+
+        function setTab(tab){
+            return currentTab = tab;
+        }
+
+        function displayTab(tab){
+            return currentTab === tab;
+        }
 
         function loadAccountManager(user) {
             if (user) {

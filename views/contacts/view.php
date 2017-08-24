@@ -7,20 +7,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-md-3">
                     <div class="titleWell">
-                        {{form.title_name + ' ' + form.first_name + ' ' + form.last_name}}
+                        {{contact.title_name + ' ' + contact.first_name + ' ' + contact.last_name}}
                     </div>
                     <div>
-                        <small>{{form.name_company}}</small>
+                        <small>{{contact.name_company}}</small>
                     </div>
                 </div>
 
                 <div class="col-md-3">
-                    <strong>Topologie : </strong>{{form.name_topology}} <br>
-                    <strong>Famille : </strong>{{form.name_account_family}}
+                    <strong>Topologie : </strong>{{contact.name_topology}} <br>
+                    <strong>Famille : </strong>{{contact.name_account_family}}
                 </div>
 
                 <div class="col-md-3">
-                    <strong>Manager : </strong>{{form.name_user_account_manager}}
+                    <strong>Manager : </strong>{{contact.name_user_account_manager}}
                 </div>
 
                 <div class="col-md-3">
@@ -62,13 +62,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div ng-show="isTabActive('summary')">
             <div class="row">
                 <div class="col-md-4">
-                    <strong>Date de naissance : </strong>{{form.date_of_birth | date:'dd/MM/yyyy'}}
+                    <strong>Date de naissance : </strong>{{contact.date_of_birth | date:'dd/MM/yyyy'}}
                 </div>
                 <div class="col-md-4">
-                    <strong>Service : </strong>{{form.name_activity_area}}
+                    <strong>Service : </strong>{{contact.name_activity_area}}
                 </div>
                 <div class="col-md-4">
-                    <strong>Fonction : </strong>{{form.company_number}}
+                    <strong>Fonction : </strong>{{contact.company_number}}
                 </div>
             </div>
             <div class="row">
@@ -79,29 +79,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="well">
                         <div class="row">
                             <div class="col-md-4">
-                                <i class="fa fa-fw fa-mobile"></i> {{form.mobile}}
+                                <i class="fa fa-fw fa-mobile"></i> {{contact.mobile}}
                             </div>
                             <div class="col-md-4">
-                                <i class="fa fa-fw fa-phone"></i> {{form.phone}}
+                                <i class="fa fa-fw fa-phone"></i> {{contact.phone}}
                             </div>
                             <div class="col-md-4">
-                                <i class="fa fa-fw fa-phone"></i> {{form.other_phone}}
+                                <i class="fa fa-fw fa-phone"></i> {{contact.other_phone}}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <i class="fa fa-fw fa-fax"></i> {{form.fax}}
+                                <i class="fa fa-fw fa-fax"></i> {{contact.fax}}
                             </div>
                             <div class="col-md-4">
-                                <i class="fa fa-fw fa-skype"></i> {{form.skype_id}}
+                                <i class="fa fa-fw fa-skype"></i> {{contact.skype_id}}
                             </div>
                             <div class="col-md-4">
-                                <i class="fa fa-fw fa-twitter"></i> {{form.twitter}}
+                                <i class="fa fa-fw fa-twitter"></i> {{contact.twitter}}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <i class="fa fa-fw fa-globe"></i> {{form.website_url}}
+                                <i class="fa fa-fw fa-globe"></i> {{contact.website_url}}
                             </div>
                         </div>
                     </div>
@@ -115,10 +115,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="well">
                         <div class="row">
                             <div class="col-md-6">
-                                <i class="fa fa-fw fa-user"></i> {{form.assistant}}
+                                <i class="fa fa-fw fa-user"></i> {{contact.assistant}}
                             </div>
                             <div class="col-md-6">
-                                <i class="fa fa-fw fa-phone"></i> {{form.assistant_phone}}
+                                <i class="fa fa-fw fa-phone"></i> {{contact.assistant_phone}}
                             </div>
                         </div>
                     </div>
@@ -130,12 +130,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <strong>Adresse de facturation :</strong>
                     </div>
                     <div class="well">
-                        <span ng-if="form.address_1 != ''">{{form.address_1}}<br></span>
-                        <span ng-if="form.address_2 != ''">{{form.address_2}}<br></span>
-                        <span ng-if="form.address_3 != ''">{{form.address_3}}<br></span>
-                        <span ng-if="form.zipcode != '' || form.city != ''">{{form.zipcode}} {{form.city}}<br></span>
-                        <span ng-if="form.state != ''">{{form.state}}<br></span>
-                        <span ng-if="form.country_name != ''">{{form.country_name}}<br></span>
+                        <span ng-if="contact.address_1 != ''">{{contact.address_1}}<br></span>
+                        <span ng-if="contact.address_2 != ''">{{contact.address_2}}<br></span>
+                        <span ng-if="contact.address_3 != ''">{{contact.address_3}}<br></span>
+                        <span ng-if="contact.zipcode != '' || contact.city != ''">{{contact.zipcode}} {{contact.city}}<br></span>
+                        <span ng-if="contact.state != ''">{{contact.state}}<br></span>
+                        <span ng-if="contact.country_name != ''">{{contact.country_name}}<br></span>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <strong>Commentaire :</strong>
                     </div>
                     <div class="well">
-                        {{form.comment}}
+                        {{contact.comment}}
                     </div>
                 </div>
             </div>

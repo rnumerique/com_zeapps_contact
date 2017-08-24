@@ -6,7 +6,7 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 		$scope.$on("comZeappsContact_triggerEntrepriseHook", function(event, data){
 			$rootScope.$broadcast("comZeappsContact_dataEntrepriseHook",
 				{
-					id_company: $routeParams.id
+					id_company: $routeParams.id_company
 				}
 			);
 		});
@@ -29,8 +29,8 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 		$scope.back = back;
 
 		// charge la fiche
-		if ($routeParams.id && $routeParams.id != 0) {
-			zhttp.contact.company.get($routeParams.id).then(function (response) {
+		if ($routeParams.id_company && $routeParams.id_company != 0) {
+			zhttp.contact.company.get($routeParams.id_company).then(function (response) {
 				if (response.status == 200) {
 					$scope.company = response.data.company;
 					$scope.contacts = response.data.contacts;
@@ -86,7 +86,7 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			$scope.company_last = 0;
 
 			for (var i = 0; i < $rootScope.companies_search_list.length; i++) {
-				if ($rootScope.companies_search_list[i].id == $routeParams.id) {
+				if ($rootScope.companies_search_list[i].id == $routeParams.id_company) {
 					$scope.companie_order = i + 1;
 					if (i > 0) {
 						$scope.company_previous = $rootScope.companies_search_list[i - 1].id;
@@ -99,12 +99,12 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			}
 
 			// recherche la première companie de la liste
-			if ($rootScope.companies_search_list[0].id != $routeParams.id) {
+			if ($rootScope.companies_search_list[0].id != $routeParams.id_company) {
 				$scope.company_first = $rootScope.companies_search_list[0].id;
 			}
 
 			// recherche la dernière companie de la liste
-			if ($rootScope.companies_search_list[$rootScope.companies_search_list.length - 1].id != $routeParams.id) {
+			if ($rootScope.companies_search_list[$rootScope.companies_search_list.length - 1].id != $routeParams.id_company) {
 				$scope.company_last = $rootScope.companies_search_list[$rootScope.companies_search_list.length - 1].id;
 			}
 		}
