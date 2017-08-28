@@ -130,7 +130,7 @@ app.controller("ComZeappsContactCompaniesFormCtrl", ["$scope", "$route", "$route
 
 		function loadStateDelivery(state) {
             if (state) {
-                $scope.$parent.form.delivery_state = state.name;
+                $scope.$parent.form.delivery_state = state.iso_code;
             } else {
                 $scope.$parent.form.delivery_state = "";
             }
@@ -138,7 +138,7 @@ app.controller("ComZeappsContactCompaniesFormCtrl", ["$scope", "$route", "$route
 
 		function loadStateBilling(state) {
             if (state) {
-                $scope.$parent.form.billing_state = state.name;
+                $scope.$parent.form.billing_state = state.iso_code;
             } else {
                 $scope.$parent.form.billing_state = "";
             }

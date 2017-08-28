@@ -108,7 +108,7 @@ app.controller("ComZeappsContactContactsFormCtrl", ["$scope", "$route", "$routeP
 
         function loadState(state) {
             if (state) {
-                $scope.$parent.form.state = state.name;
+                $scope.$parent.form.state = state.iso_code;
             } else {
                 $scope.$parent.form.state = "";
             }
