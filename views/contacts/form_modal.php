@@ -130,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-2">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="form.email_opt_out"> Rejet des mails
+                        <input type="checkbox" class="checkbox" ng-model="form.opt_out"> Opposition marketing
                     </label>
                 </div>
             </div>
