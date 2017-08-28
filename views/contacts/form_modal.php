@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <ul role="tablist" class="nav nav-tabs">
         <li ng-class="isTabActive('general')"><a href="#" ng-click="setTab('general')">Informations générales</a></li>
         <li ng-class="isTabActive('activity')"><a href="#" ng-click="setTab('activity')">Activité</a></li>
-        <li ng-class="isTabActive('contact')"><a href="#" ng-click="setTab('contact')">Informations de contact</a></li>
+        <li ng-class="isTabActive('contact')"><a href="#" ng-click="setTab('contact')">Coordonnées</a></li>
         <li ng-class="isTabActive('comments')"><a href="#" ng-click="setTab('comments')">Commentaires</a></li>
     </ul>
 
