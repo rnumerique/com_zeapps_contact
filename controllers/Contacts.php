@@ -70,6 +70,13 @@ class Contacts extends ZeCtrl
         }
         $total = $this->contacts->count($filters);
 
+        $ids = [];
+        if($rows = $this->contacts->all($filters)){
+            foreach($rows as $row){
+                array_push($ids, $row->id);
+            }
+        }
+
         if($context){
             $this->load->model('Zeapps_account_families', 'account_families');
             $this->load->model('Zeapps_topologies', 'topologies');
@@ -91,7 +98,8 @@ class Contacts extends ZeCtrl
             'account_families' => $account_families,
             'topologies' => $topologies,
             'contacts' => $contacts,
-            "total" => $total
+            "total" => $total,
+            'ids' => $ids
         ));
     }
 

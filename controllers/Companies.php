@@ -65,6 +65,13 @@ class Companies extends ZeCtrl
         }
         $total = $this->companies->count($filters);
 
+        $ids = [];
+        if($rows = $this->companies->all($filters)){
+            foreach($rows as $row){
+                array_push($ids, $row->id);
+            }
+        }
+
         if($context) {
             $this->load->model('Zeapps_account_families', 'account_families');
             $this->load->model('Zeapps_topologies', 'topologies');
@@ -86,7 +93,8 @@ class Companies extends ZeCtrl
             'account_families' => $account_families,
             'topologies' => $topologies,
             'companies' => $companies,
-            'total' => $total
+            'total' => $total,
+            'ids' => $ids
         ));
     }
 

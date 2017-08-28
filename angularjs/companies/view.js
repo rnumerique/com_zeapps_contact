@@ -38,13 +38,13 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			});
 		}
 
-		if($rootScope.companies_search_list == undefined) {
+		if($rootScope.companies_ids == undefined) {
             zhttp.contact.company.all(0, 0, "").then(function (response) {
 				if (response.status == 200) {
 					$scope.companies = response.data.companies;
 
 					// stock la liste des compagnies pour la navigation par fleche
-					$rootScope.companies_search_list = response.data.companies;
+					$rootScope.companies_ids = response.data.ids;
 
 					initNavigation();
 				}
@@ -75,7 +75,7 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 		function initNavigation() {
 
 			// calcul le nombre de résultat
-			$scope.nb_companies = $rootScope.companies_search_list.length;
+			$scope.nb_companies = $rootScope.companies_ids.length;
 
 
 			// calcul la position du résultat actuel
@@ -85,27 +85,27 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			$scope.company_next = 0;
 			$scope.company_last = 0;
 
-			for (var i = 0; i < $rootScope.companies_search_list.length; i++) {
-				if ($rootScope.companies_search_list[i].id == $routeParams.id_company) {
+			for (var i = 0; i < $rootScope.companies_ids.length; i++) {
+				if ($rootScope.companies_ids[i] == $routeParams.id_company) {
 					$scope.companie_order = i + 1;
 					if (i > 0) {
-						$scope.company_previous = $rootScope.companies_search_list[i - 1].id;
+						$scope.company_previous = $rootScope.companies_ids[i - 1];
 					}
 
-					if ((i + 1) < $rootScope.companies_search_list.length) {
-						$scope.company_next = $rootScope.companies_search_list[i + 1].id;
+					if ((i + 1) < $rootScope.companies_ids.length) {
+						$scope.company_next = $rootScope.companies_ids[i + 1];
 					}
 				}
 			}
 
 			// recherche la première companie de la liste
-			if ($rootScope.companies_search_list[0].id != $routeParams.id_company) {
-				$scope.company_first = $rootScope.companies_search_list[0].id;
+			if ($rootScope.companies_ids[0] != $routeParams.id_company) {
+				$scope.company_first = $rootScope.companies_ids[0];
 			}
 
 			// recherche la dernière companie de la liste
-			if ($rootScope.companies_search_list[$rootScope.companies_search_list.length - 1].id != $routeParams.id_company) {
-				$scope.company_last = $rootScope.companies_search_list[$rootScope.companies_search_list.length - 1].id;
+			if ($rootScope.companies_ids[$rootScope.companies_ids.length - 1] != $routeParams.id_company) {
+				$scope.company_last = $rootScope.companies_ids[$rootScope.companies_ids.length - 1];
 			}
 		}
 
@@ -129,8 +129,4 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
                 $location.path("/ng/com_zeapps_contact/companies/" + $scope.company_last);
             }
         }
-
-
-
-
 	}]);

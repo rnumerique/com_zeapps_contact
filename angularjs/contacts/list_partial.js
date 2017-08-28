@@ -79,6 +79,8 @@ app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "
                     });
 
                     $scope.total = response.data.total;
+                    // stock la liste des contacts pour la navigation par fleche
+                    $rootScope.contacts_ids = response.data.ids ;
 				}
 			});
 		}

@@ -74,7 +74,7 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
                     }
                     $scope.companies = response.data.companies ;
 					// stock la liste des compagnies pour la navigation par fleche
-					$rootScope.companies_search_list = response.data.companies ;
+					$rootScope.companies_ids = response.data.ids ;
 					$scope.total = response.data.total;
 				}
 			});
