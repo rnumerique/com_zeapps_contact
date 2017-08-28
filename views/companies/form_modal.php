@@ -110,6 +110,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <div ng-if="displayTab('contact')">
         <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" ng-model="form.email" class="form-control">
+                </div>
+            </div>
             <div class="col-md-2">
                 <div class="checkbox">
                     <label>
@@ -117,6 +123,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </label>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Téléphone</label>
