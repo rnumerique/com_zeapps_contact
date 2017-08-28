@@ -13,7 +13,7 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 
         $scope.templateEdit = "/com_zeapps_contact/companies/form_modal";
 		$scope.hooks = zeHooks.get("comZeappsContact_EntrepriseHook");
-		$scope.company = [];
+		$scope.companies = [];
 
         $scope.currentTab = $rootScope.comZeappsContactLastShowTabEntreprise || "summary";
 
