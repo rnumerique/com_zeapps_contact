@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped table-condensed table-responsive" ng-show="companies.length">
+            <table class="table table-hover table-condensed table-responsive" ng-show="companies.length">
                 <thead>
                 <tr>
                     <th>Nom</th>
@@ -37,10 +37,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </thead>
                 <tbody>
                 <tr ng-repeat="company in companies">
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.company_name}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.phone}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.billing_city}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/companies/{{company.id}}">{{company.name_user_account_manager}}</a></td>
+                    <td ng-click="goTo(company.id)">{{company.company_name}}</td>
+                    <td ng-click="goTo(company.id)">{{company.phone}}</td>
+                    <td ng-click="goTo(company.id)">{{company.billing_city}}</td>
+                    <td ng-click="goTo(company.id)">{{company.name_user_account_manager}}</td>
                     <td class="text-right">
                         <ze-btn fa="pencil" color="info" hint="Editer" direction="left"
                                 ze-modalform="edit"

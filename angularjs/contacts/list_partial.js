@@ -54,6 +54,7 @@ app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "
         $scope.templateForm = '/com_zeapps_contact/contacts/form_modal';
 
         $scope.loadList = loadList;
+        $scope.goTo = goTo;
         $scope.add = add;
         $scope.edit = edit;
 		$scope.delete = del;
@@ -84,6 +85,10 @@ app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "
 				}
 			});
 		}
+
+        function goTo(id){
+            $location.url('/ng/com_zeapps_contact/contacts/'+id);
+        }
 
         function add(contact) {
             var formatted_data = angular.toJson(contact);

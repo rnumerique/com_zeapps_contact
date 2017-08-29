@@ -51,6 +51,7 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
 		$scope.templateForm = '/com_zeapps_contact/companies/form_modal';
 
 		$scope.loadList = loadList;
+        $scope.goTo = goTo;
 		$scope.loadCodeNaf = loadCodeNaf;
 		$scope.removeCodeNaf = removeCodeNaf;
 		$scope.loadCountryLang = loadCountryLang;
@@ -79,6 +80,11 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
 				}
 			});
 		}
+
+        function goTo(id){
+            $location.url('/ng/com_zeapps_contact/companies/'+id);
+        }
+
 		function loadCodeNaf() {
 			zeapps_modal.loadModule("com_zeapps_contact", "search_code_naf", {}, function(objReturn) {
 				if (objReturn) {

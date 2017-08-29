@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped table-condensed table-responsive" ng-show="contacts.length">
+            <table class="table table-hover table-condensed table-responsive" ng-show="contacts.length">
                 <thead>
                 <tr>
                     <th>Nom</th>
@@ -33,10 +33,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </thead>
                 <tbody>
                 <tr ng-repeat="contact in contacts">
-                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.first_name}} {{contact.last_name}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.phone}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.city}}</a></td>
-                    <td><a href="/ng/com_zeapps_contact/contacts/{{contact.id}}">{{contact.name_user_account_manager}}</a></td>
+                    <td ng-click="goTo(contact.id)">{{contact.first_name}} {{contact.last_name}}</td>
+                    <td ng-click="goTo(contact.id)">{{contact.phone}}</td>
+                    <td ng-click="goTo(contact.id)">{{contact.city}}</td>
+                    <td ng-click="goTo(contact.id)">{{contact.name_user_account_manager}}</td>
                     <td class="text-right">
                         <ze-btn fa="pencil" color="info" hint="Editer" direction="left"
                                 ze-modalform="edit"
