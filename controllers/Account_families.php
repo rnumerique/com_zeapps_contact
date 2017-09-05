@@ -8,6 +8,10 @@ class Account_families extends ZeCtrl
         $this->load->view('account_families/config');
     }
 
+    public function form_modal(){
+        $this->load->view('account_families/form_modal');
+    }
+
     public function get_all() {
         $this->load->model("Zeapps_account_families", "account_families");
         $account_families = $this->account_families->all();

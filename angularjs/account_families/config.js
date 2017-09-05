@@ -3,60 +3,31 @@ app.controller("ComZeappsContactAccountFamiliesConfigCtrl", ["$scope", "$route",
 
 		$scope.$parent.loadMenu("com_ze_apps_config", "com_ze_apps_contact_account_families");
 
-		$scope.form = {};
-		$scope.newLine = {};
+		$scope.templateForm = "/com_zeapps_contact/account_families/form_modal";
 
-		$scope.createLine = createLine;
-		$scope.cancelLine = cancelLine;
+		$scope.add = add;
+		$scope.edit = edit;
 		$scope.delete = del;
-		$scope.cancel = cancel;
-		$scope.success = success;
 
-		zhttp.contact.account_families.get_all().then(function(response){
-			if(response.data && response.data != "false"){
-				angular.forEach(response.data, function(account_family){
-					account_family.sort = parseInt(account_family.sort);
-				});
-				$rootScope.account_families = response.data;
-				$scope.form.account_families = angular.fromJson(angular.toJson(response.data));
-			}
-		});
+        function add(account_family){
+            var formatted_data = angular.toJson(account_family);
+            zhttp.contact.account_families.save(formatted_data).then(function(response){
+                if(response.data && response.data != "false"){
+                	account_family.id = response.data;
+                    $rootScope.account_families.push(account_family);
+                }
+            });
+        }
 
-		function createLine(){
-			var formatted_data = angular.toJson($scope.newLine);
-			zhttp.contact.account_families.save(formatted_data).then(function(response){
+        function edit(account_family){
+            var formatted_data = angular.toJson(account_family);
+            zhttp.contact.account_families.save(formatted_data);
+        }
+
+		function del(account_family){
+			zhttp.contact.account_families.del(account_family.id).then(function(response){
 				if(response.data && response.data != "false"){
-					$scope.newLine.id = response.data;
-					$scope.form.account_families.push(angular.fromJson(angular.toJson($scope.newLine)));
-					$rootScope.account_families.push($scope.newLine);
-					$scope.newLine = {};
-				}
-			});
-		}
-
-		function cancelLine(){
-			$scope.newLine = {};
-		}
-
-		function del(index){
-			var id = $scope.form.account_families[index].id;
-			zhttp.contact.account_families.del(id).then(function(response){
-				if(response.data && response.data != "false"){
-					$scope.form.account_families.splice(index, 1);
-					$rootScope.account_families.splice(index, 1);
-				}
-			});
-		}
-
-		function cancel(){
-			$scope.form.account_families = angular.fromJson(angular.toJson($rootScope.account_families));
-		}
-
-		function success(){
-			var formatted_data = angular.toJson($scope.form.account_families);
-			zhttp.contact.account_families.save_all(formatted_data).then(function(response){
-				if(response.data && response.data != "false"){
-					$rootScope.account_families = angular.fromJson(angular.toJson($scope.form.account_families));
+					$rootScope.account_families.splice($rootScope.account_families.indexOf(account_family), 1);
 				}
 			});
 		}

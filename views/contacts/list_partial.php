@@ -56,6 +56,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             class="pagination-sm" boundary-links="true" max-size="15"
             previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
     </div>
-
-
 </div>

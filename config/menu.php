@@ -16,7 +16,7 @@ $menuLeft[] = $tabMenu ;
 
 
 $tabMenu = array () ;
-$tabMenu["id"] = "com_ze_apps_project_topologies" ;
+$tabMenu["id"] = "com_ze_apps_contact_topologies" ;
 $tabMenu["space"] = "com_ze_apps_config" ;
 $tabMenu["label"] = "Topologies" ;
 $tabMenu["fa-icon"] = "tasks" ;

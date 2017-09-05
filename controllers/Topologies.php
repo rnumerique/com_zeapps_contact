@@ -8,6 +8,10 @@ class Topologies extends ZeCtrl
         $this->load->view('topologies/config');
     }
 
+    public function form_modal(){
+        $this->load->view('topologies/form_modal');
+    }
+
     public function get_all() {
         $this->load->model("Zeapps_topologies", "topologies");
         $topologies = $this->topologies->all();

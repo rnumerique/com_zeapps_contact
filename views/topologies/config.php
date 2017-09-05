@@ -1,17 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<div id="breadcrumb">
+    Topologies
+</div>
+
 <div id="content">
     <div class="row">
         <div class="col-md-12">
-            <h3>Topologies</h3>
+            <ze-btn fa="plus" color="success" hint="Topologie" always-on="true"
+                    ze-modalform="add"
+                    data-template="templateForm"
+                    data-title="Ajouter une nouvelle topologie"></ze-btn>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
             <form>
-                <table class="table table-responsive table-condensed table-stripped">
+                <table class="table table-responsive table-condensed table-hover">
                     <thead>
                     <tr>
                         <th>
@@ -24,39 +31,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th>
-                            <input type="text" ng-model="newLine.label" class="form-control">
-                        </th>
-                        <th>
-                            <input type="number" ng-model="newLine.sort" class="form-control">
-                        </th>
-                        <td class="text-right">
-                            <button type="button" class="btn btn-success btn-xs" ng-click="createLine()">
-                                <i class="fa fa-fw fa-plus"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="cancelLine()">
-                                <i class="fa fa-fw fa-times"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr ng-repeat="topology in form.topologies">
+                    <tr ng-repeat="topology in $root.topologies">
                         <td>
-                            <input type="text" ng-model="topology.label" class="form-control">
+                            {{topology.label}}
                         </td>
                         <td>
-                            <input type="number" ng-model="topology.sort" class="form-control">
+                            {{topology.sort}}
                         </td>
                         <td class="text-right">
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="delete($index)">
-                                <i class="fa fa-fw fa-trash"></i>
-                            </button>
+                            <ze-btn fa="pencil" color="info" hint="Editer" direction="left"
+                                    ze-modalform="edit"
+                                    data-edit="topology"
+                                    data-template="templateForm"
+                                    data-title="Modifier la topologie"></ze-btn>
+                            <ze-btn fa="trash" color="danger" hint="Supprimer" direction="left" ng-click="delete(topology)" ze-confirmation></ze-btn>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-
-                <form-buttons></form-buttons>
             </form>
         </div>
     </div>

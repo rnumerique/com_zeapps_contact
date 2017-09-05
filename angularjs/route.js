@@ -25,7 +25,7 @@ app.config(["$routeProvider",
 
 		// CONFIG
 			.when("/ng/com_zeapps/account_families", {
-				templateUrl: "/com_zeapps_contact/account_types/config",
+				templateUrl: "/com_zeapps_contact/account_families/config",
 				controller: "ComZeappsContactAccountFamiliesConfigCtrl"
 			})
 			.when("/ng/com_zeapps/topologies", {
