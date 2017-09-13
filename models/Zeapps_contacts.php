@@ -1,8 +1,22 @@
 <?php
 class Zeapps_contacts extends ZeModel {
-    public function getEmailsByMonth($year = 0, $month = 0){
-        $query = "SELECT * FROM zeapps_contacts WHERE YEAR(created_at) = ".$year." AND MONTH(created_at) = ".$month." AND email != '' AND opt_out = 0 AND deleted_at IS NULL";
+    public function getEmailsByMonth($where = array(), $year = 0, $month = 0){
+        $query = "SELECT COUNT(*) as total FROM zeapps_contacts WHERE YEAR(created_at) = ".$year." AND MONTH(created_at) = ".$month." AND email != '' AND opt_out = 0 AND deleted_at IS NULL";
+
+        if(isset($where['country_id'])){
+            $query .= " AND country_id IN (".implode(',', $where['country_id']).")";
+        }
 
         return $this->database()->customQuery($query)->result();
+    }
+
+    public function get_ids($where = array()){
+
+        $where['deleted_at'] = null;
+
+        return $this->database()->select('id')
+            ->where($where)
+            ->table('zeapps_contacts')
+            ->result();
     }
 }

@@ -66,9 +66,11 @@ class Companies extends ZeCtrl
         $total = $this->companies->count($filters);
 
         $ids = [];
-        if($rows = $this->companies->all($filters)){
-            foreach($rows as $row){
-                array_push($ids, $row->id);
+        if($total < 500) {
+            if ($rows = $this->companies->get_ids($filters)) {
+                foreach ($rows as $row) {
+                    array_push($ids, $row->id);
+                }
             }
         }
 
