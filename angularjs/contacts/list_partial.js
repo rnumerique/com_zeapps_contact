@@ -65,7 +65,7 @@ app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "
             context = context || "";
             var offset = ($scope.page - 1) * $scope.pageSize;
             var formatted_filters = angular.toJson($scope.filter_model);
-            var id_company = $routeParams.id || '';
+            var id_company = $routeParams.id_company || '';
 
 			zhttp.contact.contact.all(id_company, $scope.pageSize, offset, context, formatted_filters).then(function (response) {
 				if (response.status == 200) {
