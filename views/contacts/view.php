@@ -149,6 +149,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <strong>Temps moyen entre 2 commandes :</strong>
+                    </div>
+                    <div class="well">
+                        {{contact.average_order}} jours
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <strong>Chiffre d'affaire par année :</strong>
+                    </div>
+                    <div class="well">
+                        <table class="table table-responsive table-striped table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Année</th>
+                                <th class="text-right">Chiffre d'affaires HT</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="turnover in contact.turnovers">
+                                <td>{{turnover.year}}</td>
+                                <td class="text-right">{{turnover.total_ht | currency:'€':2}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </form>

@@ -6,6 +6,7 @@ class Zeapps_companies extends ZeModel {
 
         return $this->database()->select('id')
             ->where($where)
+            ->order_by('company_name')
             ->table('zeapps_companies')
             ->result();
     }

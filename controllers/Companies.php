@@ -60,7 +60,7 @@ class Companies extends ZeCtrl
             $filters = json_decode(file_get_contents('php://input'), true);
         }
 
-        if(!$companies = $this->companies->limit($limit, $offset)->all($filters)){
+        if(!$companies = $this->companies->limit($limit, $offset)->order_by('company_name')->all($filters)){
             $companies = [];
         }
         $total = $this->companies->count($filters);
@@ -112,7 +112,7 @@ class Companies extends ZeCtrl
 
         $total = $this->companies->count($filters);
 
-        if(!$companies = $this->companies->limit($limit, $offset)->all($filters)){
+        if(!$companies = $this->companies->limit($limit, $offset)->order_by('company_name')->all($filters)){
             $companies = [];
         }
 
@@ -124,6 +124,8 @@ class Companies extends ZeCtrl
         $this->load->model("Zeapps_contacts", "contacts");
         $this->load->model('Zeapps_account_families', 'account_families');
         $this->load->model('Zeapps_topologies', 'topologies');
+        $this->load->model('Zeapps_orders', 'orders', 'com_zeapps_crm');
+        $this->load->model('Zeapps_invoices', 'invoices', 'com_zeapps_crm');
 
         if(!$account_families = $this->account_families->all()){
             $account_families = [];
@@ -137,7 +139,11 @@ class Companies extends ZeCtrl
             $contacts = [];
         }
 
-        if(!$company = $this->companies->get($id)){
+        if($company = $this->companies->get($id)){
+            $company->average_order = $this->orders->frequencyOf($id, 'company');
+            $company->turnovers = $this->invoices->turnoverByYearsOf($id, 'company');
+        }
+        else{
             $company = [];
         }
 

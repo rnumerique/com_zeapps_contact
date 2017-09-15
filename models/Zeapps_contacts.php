@@ -16,6 +16,7 @@ class Zeapps_contacts extends ZeModel {
 
         return $this->database()->select('id')
             ->where($where)
+            ->order_by('last_name, first_name')
             ->table('zeapps_contacts')
             ->result();
     }

@@ -65,7 +65,7 @@ class Contacts extends ZeCtrl
         if($id_company !== "0")
             $filters['id_company'] = $id_company;
 
-        if(!$contacts = $this->contacts->limit($limit, $offset)->all($filters)){
+        if(!$contacts = $this->contacts->limit($limit, $offset)->order_by('last_name, first_name')->all($filters)){
             $contacts = [];
         }
         $total = $this->contacts->count($filters);
@@ -109,6 +109,8 @@ class Contacts extends ZeCtrl
         $this->load->model("Zeapps_contacts", "contacts");
         $this->load->model('Zeapps_account_families', 'account_families');
         $this->load->model('Zeapps_topologies', 'topologies');
+        $this->load->model('Zeapps_orders', 'orders', 'com_zeapps_crm');
+        $this->load->model('Zeapps_invoices', 'invoices', 'com_zeapps_crm');
 
         if(!$account_families = $this->account_families->all()){
             $account_families = [];
@@ -118,7 +120,11 @@ class Contacts extends ZeCtrl
             $topologies = [];
         }
 
-        if(!$contact = $this->contacts->get($id)){
+        if($contact = $this->contacts->get($id)){
+            $contact->average_order = $this->orders->frequencyOf($id, 'contact');
+            $contact->turnovers = $this->invoices->turnoverByYearsOf($id, 'contact');
+        }
+        else{
             $contact = [];
         }
 
@@ -140,7 +146,7 @@ class Contacts extends ZeCtrl
 
         $total = $this->contacts->count($filters);
 
-        if(!$contacts = $this->contacts->limit($limit, $offset)->all($filters)){
+        if(!$contacts = $this->contacts->limit($limit, $offset)->order_by('last_name, first_name')->all($filters)){
             $contacts = [];
         }
 

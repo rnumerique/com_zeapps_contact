@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </thead>
                 <tbody>
                 <tr ng-repeat="contact in contacts">
-                    <td ng-click="goTo(contact.id)">{{contact.first_name}} {{contact.last_name}}</td>
+                    <td ng-click="goTo(contact.id)">{{contact.last_name}} {{contact.first_name}}</td>
                     <td ng-click="goTo(contact.id)">{{contact.phone}}</td>
                     <td ng-click="goTo(contact.id)">{{contact.city}}</td>
                     <td ng-click="goTo(contact.id)">{{contact.name_user_account_manager}}</td>
