@@ -14,6 +14,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     ze-modalform="add"
                     data-template="templateForm"
                     data-title="Ajouter une nouvelle entreprise"></ze-btn>
+
+            <ze-btn fa="download" color="primary" hint="Excel" always-on="true"
+                    ng-click="getExcel()"></ze-btn>
         </div>
     </div>
 

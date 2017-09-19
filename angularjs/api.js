@@ -10,7 +10,11 @@ app.config(["$provide",
 					all : getAll_company,
 					modal : modal_company,
 					save : save_company,
-					del : delete_company
+					del : delete_company,
+					excel : {
+						make : makeExcel_company,
+						get : getExcel_company
+					}
 				},
 				contact : {
                     context : context_contact,
@@ -18,7 +22,11 @@ app.config(["$provide",
 					all : getAll_contact,
                     modal : modal_contact,
                     save : save_contact,
-                    del : delete_contact
+                    del : delete_contact,
+                    excel : {
+                        make : makeExcel_contact,
+                        get : getExcel_contact
+                    }
 				},
 				account_families : {
 					get : get_accountFamilies,
@@ -64,6 +72,12 @@ app.config(["$provide",
 			function delete_company(id){
 				return zeHttp.delete("/com_zeapps_contact/companies/delete/" + id);
 			}
+            function makeExcel_company(filters){
+                return zeHttp.post("/com_zeapps_contact/companies/make_export/", filters);
+            }
+            function getExcel_company(){
+                return "/com_zeapps_contact/companies/get_export/";
+            }
 
 			function context_contact(){
 				return zeHttp.get("/com_zeapps_contact/contacts/context/");
@@ -84,6 +98,12 @@ app.config(["$provide",
             }
             function delete_contact(id){
                 return zeHttp.delete("/com_zeapps_contact/contacts/delete/" + id);
+            }
+            function makeExcel_contact(filters){
+                return zeHttp.post("/com_zeapps_contact/contacts/make_export/", filters);
+            }
+            function getExcel_contact(){
+                return "/com_zeapps_contact/contacts/get_export/";
             }
 
 			function get_accountFamilies(id){

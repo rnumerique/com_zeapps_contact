@@ -56,6 +56,7 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
 		$scope.removeCodeNaf = removeCodeNaf;
 		$scope.loadCountryLang = loadCountryLang;
 		$scope.removeCountryLang = removeCountryLang;
+		$scope.getExcel = getExcel;
 		$scope.add = add;
 		$scope.edit = edit;
 		$scope.delete = del;
@@ -114,6 +115,18 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
 			$scope.filters.country_id = 0;
 
 		}
+
+		function getExcel(){
+            var formatted_filters = angular.toJson($scope.filter_model);
+            zhttp.contact.company.excel.make(formatted_filters).then(function (response) {
+                if (response.data && response.data !== "false") {
+                    window.document.location.href = zhttp.contact.company.excel.get();
+                }
+                else{
+                    toasts('info', "Aucune compagnie correspondant à vos critères n'a pu etre trouvée");
+                }
+            });
+        }
 
         function add(company) {
 			var formatted_data = angular.toJson(company);

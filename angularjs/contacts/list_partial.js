@@ -55,6 +55,7 @@ app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "
 
         $scope.loadList = loadList;
         $scope.goTo = goTo;
+        $scope.getExcel = getExcel;
         $scope.add = add;
         $scope.edit = edit;
 		$scope.delete = del;
@@ -88,6 +89,18 @@ app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "
 
         function goTo(id){
             $location.url('/ng/com_zeapps_contact/contacts/'+id);
+        }
+
+        function getExcel(){
+            var formatted_filters = angular.toJson($scope.filter_model);
+            zhttp.contact.contact.excel.make(formatted_filters).then(function (response) {
+                if (response.data && response.data !== "false") {
+                    window.document.location.href = zhttp.contact.contact.excel.get();
+                }
+                else{
+                    toasts('info', "Aucune compagnie correspondant à vos critères n'a pu etre trouvée");
+                }
+            });
         }
 
         function add(contact) {
