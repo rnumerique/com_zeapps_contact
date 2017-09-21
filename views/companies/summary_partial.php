@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
     <div class="col-md-6">
         <div>
-            <strong>Chiffre d'affaire par année :</strong>
+            <strong>Chiffre d'affaires par année :</strong>
         </div>
         <div class="well">
             <table class="table table-responsive table-striped table-condensed">

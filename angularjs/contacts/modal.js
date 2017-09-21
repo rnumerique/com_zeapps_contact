@@ -26,6 +26,9 @@ app.controller("ZeAppsContactsModalContactCtrl", function($scope, $uibModalInsta
 		zeHttp.contact.contact.all(option.id_company).then(function (response) {
 			if (response.status == 200) {
 				$scope.contacts = response.data.contacts ;
+                angular.forEach($scope.contacts, function(contact){
+                    contact.discount = parseFloat(contact.discount);
+                });
 			}
 		});
 	}

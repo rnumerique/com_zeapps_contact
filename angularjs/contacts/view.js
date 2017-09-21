@@ -42,6 +42,7 @@ app.controller("ComZeappsContactContactsViewCtrl", ["$scope", "$route", "$routeP
             zhttp.contact.contact.all(0, 0, "").then(function (response) {
                 if (response.status == 200) {
                     $scope.contacts = response.data.contacts;
+                    $scope.contact.discount = parseFloat($scope.contact.discount);
 
                     // stock la liste des compagnies pour la navigation par fleche
                     $rootScope.contacts_ids = response.data.ids;

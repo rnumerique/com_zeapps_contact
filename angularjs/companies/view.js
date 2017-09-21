@@ -33,6 +33,7 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$route
 			zhttp.contact.company.get($routeParams.id_company).then(function (response) {
 				if (response.status == 200) {
 					$scope.company = response.data.company;
+					$scope.company.discount = parseFloat($scope.company.discount);
 					$scope.contacts = response.data.contacts;
 				}
 			});

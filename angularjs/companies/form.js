@@ -47,6 +47,10 @@ app.controller("ComZeappsContactCompaniesFormCtrl", ["$scope", "$route", "$route
         $scope.setTab = setTab;
         $scope.displayTab = displayTab;
 
+        $scope.updateAccountFamily = updateAccountFamily;
+        $scope.updateTopology = updateTopology;
+        $scope.updateModality = updateModality;
+
 		$scope.loadAccountManager = loadAccountManager;
 		$scope.loadParentCompany = loadParentCompany;
 		$scope.loadCodeNaf = loadCodeNaf;
@@ -76,6 +80,30 @@ app.controller("ComZeappsContactCompaniesFormCtrl", ["$scope", "$route", "$route
 
         function displayTab(tab){
             return currentTab === tab;
+        }
+
+        function updateAccountFamily(){
+            angular.forEach($scope.account_families, function(account_family){
+                if($scope.form.id_account_family === account_family.id){
+                    $scope.form.name_account_family = account_family.label;
+                }
+            });
+        }
+
+        function updateTopology(){
+            angular.forEach($scope.topologies, function(topology){
+                if($scope.form.id_topology === topology.id){
+                    $scope.form.name_topology = topology.label;
+                }
+            });
+        }
+
+        function updateModality(){
+            angular.forEach($rootScope.modalities, function(modality){
+                if($scope.form.id_modality === modality.id){
+                    $scope.form.label_modality = modality.label;
+                }
+            });
         }
 
 		function loadAccountManager(user) {

@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Type de compte</label>
-                    <select ng-model="form.id_account_family" class="form-control">
+                    <select ng-model="form.id_account_family" class="form-control" ng-change="updateAccountFamily()">
                         <option ng-repeat="account_family in account_families" value="{{account_family.id}}">
                             {{ account_family.label }}
                         </option>
@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Topologie</label>
-                    <select ng-model="form.id_topology" class="form-control">
+                    <select ng-model="form.id_topology" class="form-control" ng-change="updateTopology()">
                         <option ng-repeat="topology in topologies" value="{{topology.id}}">
                             {{ topology.label }}
                         </option>
@@ -86,6 +86,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="form-group">
                     <label>Date de naissance</label>
                     <input type="date" ng-model="form.date_of_birth" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Remise par défault</label>
+                    <input type="number" ng-model="form.discount" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Modalité de paiement</label>
+                    <select ng-model="form.id_modality" class="form-control" ng-change="updateModality()">
+                        <option ng-repeat="modality in modalities" value="{{modality.id}}">
+                            {{ modality.label }}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>

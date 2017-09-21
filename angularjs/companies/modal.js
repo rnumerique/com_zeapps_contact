@@ -27,6 +27,9 @@ app.controller("ZeAppsContactsModalCompanyCtrl", function($scope, $uibModalInsta
 		$http.post("/com_zeapps_contact/companies/getAll", options).then(function (response) {
 			if (response.status == 200) {
 				$scope.companies = response.data.companies ;
+                angular.forEach($scope.companies, function(company){
+                    company.discount = parseFloat(company.discount);
+                });
 			}
 		});
 	}

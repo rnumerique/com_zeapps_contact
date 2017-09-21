@@ -75,6 +75,9 @@ app.controller("ComZeappsContactCompaniesListCtrl", ["$scope", "$route", "$route
                         $scope.filters.main[2].options = response.data.topologies;
                     }
                     $scope.companies = response.data.companies ;
+                    angular.forEach($scope.companies, function(company){
+                        company.discount = parseFloat(company.discount);
+                    });
 					// stock la liste des compagnies pour la navigation par fleche
 					$rootScope.companies_ids = response.data.ids ;
 					$scope.total = response.data.total;
