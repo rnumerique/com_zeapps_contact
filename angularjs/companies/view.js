@@ -1,7 +1,7 @@
-app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "zeapps_modal", "zeHooks",
-	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, zeapps_modal, zeHooks) {
+app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "zeapps_modal", "zeHooks", "menu",
+	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, zeapps_modal, zeHooks, menu) {
 
-		$scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_company");
+        menu("com_ze_apps_sales", "com_zeapps_sales_company");
 
 		$scope.$on("comZeappsContact_triggerEntrepriseHook", function(event, data){
 			$rootScope.$broadcast("comZeappsContact_dataEntrepriseHook",

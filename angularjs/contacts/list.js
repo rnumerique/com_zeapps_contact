@@ -1,6 +1,6 @@
-app.controller("ComZeappsContactContactsListCtrl", ["$scope",
-	function ($scope) {
+app.controller("ComZeappsContactContactsListCtrl", ["$scope", "menu",
+	function ($scope, menu) {
 
-		$scope.$parent.loadMenu("com_ze_apps_sales", "com_zeapps_sales_contact");
+        menu("com_ze_apps_sales", "com_zeapps_sales_contact");
 
 	}]);
