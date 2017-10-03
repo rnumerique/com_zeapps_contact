@@ -13,7 +13,7 @@ listModuleModalFunction.push({
 });
 
 
-app.controller("ZeAppsContactsModalCodeNafCtrl", function($scope, $uibModalInstance, $http, titre, option) {
+app.controller("ZeAppsContactsModalCodeNafCtrl", ["$scope", "$uibModalInstance", "$http", "titre", "option", function($scope, $uibModalInstance, $http, titre, option) {
 
 	$scope.titre = titre ;
 
@@ -50,4 +50,4 @@ app.controller("ZeAppsContactsModalCodeNafCtrl", function($scope, $uibModalInsta
 		});
 	}
 
-}) ;
+}]) ;

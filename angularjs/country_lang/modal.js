@@ -13,7 +13,7 @@ listModuleModalFunction.push({
 });
 
 
-app.controller("ZeAppsContactsModalCountryLangCtrl", function($scope, $uibModalInstance, $http, titre, option) {
+app.controller("ZeAppsContactsModalCountryLangCtrl", ["$scope", "$uibModalInstance", "$http", "titre", "option", function($scope, $uibModalInstance, $http, titre, option) {
 	$scope.titre = titre ;
 
 
@@ -48,4 +48,4 @@ app.controller("ZeAppsContactsModalCountryLangCtrl", function($scope, $uibModalI
 		$uibModalInstance.close(country_lang);
 	};
 
-}) ;
+}]) ;

@@ -1,4 +1,4 @@
-app.run(function(zeHttp, $rootScope){
+app.run(["zeHttp", "$rootScope", function(zeHttp, $rootScope){
     zeHttp.contact.account_families.get_all().then(function(response){
         if(response.data && response.data != "false"){
             angular.forEach(response.data, function(account_family){
@@ -16,4 +16,4 @@ app.run(function(zeHttp, $rootScope){
             $rootScope.topologies = response.data;
         }
     });
-});
+}]);

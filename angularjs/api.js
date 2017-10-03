@@ -1,6 +1,6 @@
 app.config(["$provide",
 	function ($provide) {
-		$provide.decorator("zeHttp", function($delegate){
+		$provide.decorator("zeHttp", ["$delegate", function($delegate){
 			var zeHttp = $delegate;
 
 			zeHttp.contact = {
@@ -141,5 +141,5 @@ app.config(["$provide",
 			function modal_codeNaf(limit, offset, filters){
                 return zeHttp.post("/com_zeapps_contact/code_naf/modal/" + limit + "/" + offset, filters)
 			}
-		});
+		}]);
 	}]);
