@@ -155,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <strong>Temps moyen entre 2 commandes :</strong>
                     </div>
                     <div class="well">
-                        {{contact.average_order}} jours
+                        {{contact.average_order | number:0}} jours
                     </div>
                 </div>
                 <div class="col-md-6">
