@@ -59,19 +59,18 @@ class Topologies extends ZeCtrl
             foreach($data as $topologies){
                 $this->topologies->update($topologies, $topologies['id']);
             }
-            echo json_encode('OK');
+            echo json_encode(true);
         }
         else{
-            echo json_encode('false');
+            echo json_encode(false);
         }
     }
 
 
     public function delete($id) {
         $this->load->model("Zeapps_topologies", "topologies");
-        $this->topologies->delete($id);
 
-        echo json_encode("OK");
+        echo json_encode($this->topologies->delete($id));
     }
 
 }

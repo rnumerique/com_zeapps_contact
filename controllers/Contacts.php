@@ -171,9 +171,8 @@ class Contacts extends ZeCtrl
 
     public function delete($id) {
         $this->load->model("Zeapps_contacts", "contacts");
-        $this->contacts->delete($id);
 
-        echo json_encode("OK");
+        echo json_encode($this->contacts->delete($id));
     }
 
     public function make_export(){

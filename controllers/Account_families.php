@@ -59,19 +59,18 @@ class Account_families extends ZeCtrl
             foreach($data as $account_families){
                 $this->account_families->update($account_families, $account_families['id']);
             }
-            echo json_encode('OK');
+            echo json_encode(true);
         }
         else{
-            echo json_encode('false');
+            echo json_encode(false);
         }
     }
 
 
     public function delete($id) {
         $this->load->model("Zeapps_account_families", "account_families");
-        $this->account_families->delete($id);
 
-        echo json_encode("OK");
+        echo json_encode($this->account_families->delete($id));
     }
 
 }

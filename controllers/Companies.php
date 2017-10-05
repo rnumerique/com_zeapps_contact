@@ -179,9 +179,8 @@ class Companies extends ZeCtrl
 
     public function delete($id) {
         $this->load->model("Zeapps_companies", "companies");
-        $this->companies->delete($id);
 
-        echo json_encode("OK");
+        echo json_encode($this->companies->delete($id));
     }
 
     public function make_export(){
