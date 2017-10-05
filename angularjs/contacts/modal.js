@@ -13,7 +13,7 @@ listModuleModalFunction.push({
 });
 
 
-app.controller("ZeAppsContactsModalContactCtrl", ["$scope", "$uibModalInstance", "zeHttp", "titre", "option", function($scope, $uibModalInstance, zeHttp, titre, option) {
+app.controller("ZeAppsContactsModalContactCtrl", ["$scope", "$uibModalInstance", "zeHttp", "titre", "option", function($scope, $uibModalInstance, zhttp, titre, option) {
 
 	$scope.titre = titre ;
 
@@ -23,7 +23,7 @@ app.controller("ZeAppsContactsModalContactCtrl", ["$scope", "$uibModalInstance",
 	loadList() ;
 
 	function loadList() {
-		zeHttp.contact.contact.all(option.id_company).then(function (response) {
+        zhttp.contact.contact.all(option.id_company).then(function (response) {
 			if (response.status == 200) {
 				$scope.contacts = response.data.contacts ;
                 angular.forEach($scope.contacts, function(contact){

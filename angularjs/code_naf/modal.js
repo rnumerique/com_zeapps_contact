@@ -13,7 +13,7 @@ listModuleModalFunction.push({
 });
 
 
-app.controller("ZeAppsContactsModalCodeNafCtrl", ["$scope", "$uibModalInstance", "$http", "titre", "option", function($scope, $uibModalInstance, $http, titre, option) {
+app.controller("ZeAppsContactsModalCodeNafCtrl", ["$scope", "$uibModalInstance", "zeHttp", "titre", "option", function($scope, $uibModalInstance, zhttp, titre, option) {
 
 	$scope.titre = titre ;
 
@@ -43,7 +43,7 @@ app.controller("ZeAppsContactsModalCodeNafCtrl", ["$scope", "$uibModalInstance",
 
 	function loadList() {
 		var options = {};
-		$http.post("/com_zeapps_contact/code_naf/getAll", options).then(function (response) {
+        zhttp.post("/com_zeapps_contact/code_naf/getAll", options).then(function (response) {
 			if (response.status == 200) {
 				$scope.code_naf = response.data ;
 			}

@@ -1,5 +1,5 @@
-app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "$uibModal", "zeapps_modal",
-	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, $uibModal, zeapps_modal) {
+app.controller("ComZeappsContactContactsListPartialCtrl", ["$scope", "$routeParams", "$location", "$rootScope", "zeHttp",
+	function ($scope, $routeParams, $location, $rootScope, zhttp) {
 
         $scope.filters = {
             main: [

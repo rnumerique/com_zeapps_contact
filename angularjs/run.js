@@ -1,5 +1,5 @@
-app.run(["zeHttp", "$rootScope", function(zeHttp, $rootScope){
-    zeHttp.contact.account_families.get_all().then(function(response){
+app.run(["zeHttp", "$rootScope", function(zhttp, $rootScope){
+    zhttp.contact.account_families.get_all().then(function(response){
         if(response.data && response.data != "false"){
             angular.forEach(response.data, function(account_family){
                 account_family.sort = parseInt(account_family.sort);
@@ -8,7 +8,7 @@ app.run(["zeHttp", "$rootScope", function(zeHttp, $rootScope){
         }
     });
 
-    zeHttp.contact.topologies.get_all().then(function(response){
+    zhttp.contact.topologies.get_all().then(function(response){
         if(response.data && response.data != "false"){
             angular.forEach(response.data, function(topology){
                 topology.sort = parseInt(topology.sort);

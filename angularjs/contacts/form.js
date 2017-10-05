@@ -1,5 +1,5 @@
-app.controller("ComZeappsContactContactsFormCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeapps_modal", "zeHttp",
-	function ($scope, $route, $routeParams, $location, $rootScope, zeapps_modal, zhttp) {
+app.controller("ComZeappsContactContactsFormCtrl", ["$scope", "$routeParams", "$rootScope", "zeHttp",
+	function ($scope, $routeParams, $rootScope, zhttp) {
 
         var currentTab = 'general';
 

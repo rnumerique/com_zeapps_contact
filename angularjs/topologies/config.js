@@ -1,5 +1,5 @@
-app.controller("ComZeappsContactTopologiesConfigCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
-	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
+app.controller("ComZeappsContactTopologiesConfigCtrl", ["$scope", "$rootScope", "zeHttp", "menu",
+	function ($scope, $rootScope, zhttp, menu) {
 
         menu("com_ze_apps_config", "com_ze_apps_contact_topologies");
 

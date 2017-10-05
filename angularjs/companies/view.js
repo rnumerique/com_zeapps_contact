@@ -1,5 +1,5 @@
-app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "zeapps_modal", "zeHooks", "menu",
-	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, zeapps_modal, zeHooks, menu) {
+app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$routeParams", "$location", "$rootScope", "zeHttp", "zeHooks", "menu",
+	function ($scope, $routeParams, $location, $rootScope, zhttp, zeHooks, menu) {
 
         menu("com_ze_apps_sales", "com_zeapps_sales_company");
 

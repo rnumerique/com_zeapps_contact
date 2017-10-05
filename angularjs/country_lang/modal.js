@@ -13,7 +13,7 @@ listModuleModalFunction.push({
 });
 
 
-app.controller("ZeAppsContactsModalCountryLangCtrl", ["$scope", "$uibModalInstance", "$http", "titre", "option", function($scope, $uibModalInstance, $http, titre, option) {
+app.controller("ZeAppsContactsModalCountryLangCtrl", ["$scope", "$uibModalInstance", "zeHttp", "titre", "option", function($scope, $uibModalInstance, zhttp, titre, option) {
 	$scope.titre = titre ;
 
 
@@ -25,7 +25,7 @@ app.controller("ZeAppsContactsModalCountryLangCtrl", ["$scope", "$uibModalInstan
 
 	var loadList = function () {
 		var options = {};
-		$http.post("/com_zeapps_contact/country_lang/getAll", options).then(function (response) {
+        zhttp.post("/com_zeapps_contact/country_lang/getAll", options).then(function (response) {
 			if (response.status == 200) {
 				$scope.country_lang = response.data ;
 			}
