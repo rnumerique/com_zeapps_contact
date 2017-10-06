@@ -20,4 +20,24 @@ class Zeapps_contacts extends ZeModel {
             ->table('zeapps_contacts')
             ->result();
     }
+
+    public function searchFor($terms = array()){
+        $where = [];
+
+        foreach($terms as $term){
+            $where['first_name'] = $term;
+            $where['last_name'] = $term;
+            $where['email'] = $term;
+            $where['country_name'] = $term;
+            $where['name_company'] = $term;
+        }
+
+        return $this->database()->select('*')
+            ->where(array("deleted_at" => null))
+            ->where_like_or($where)
+            ->group_by('id')
+            ->limit(10, 0)
+            ->table('zeapps_contacts')
+            ->result();
+    }
 }
