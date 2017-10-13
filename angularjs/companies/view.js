@@ -3,6 +3,7 @@ app.controller("ComZeappsContactCompaniesViewCtrl", ["$scope", "$routeParams", "
 
         menu("com_ze_apps_sales", "com_zeapps_sales_company");
 
+
 		$scope.$on("comZeappsContact_triggerEntrepriseHook", function(event, data){
 			$rootScope.$broadcast("comZeappsContact_dataEntrepriseHook",
 				{

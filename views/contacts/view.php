@@ -145,7 +145,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <strong>Commentaire :</strong>
                     </div>
                     <div class="well">
-                        {{contact.comment}}
+                        <span ng-bind-html=" contact.comment | nl2br:true "></span>
                     </div>
                 </div>
             </div>
